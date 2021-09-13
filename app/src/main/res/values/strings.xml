@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HHApiTest</string>
+    <string name="enter_area">Пожалуйста, введите название населенного пункта</string>
+    <string name="entering_area">Москва</string>
+</resources>
