@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.example.hhapitest"
         minSdk 21
-        targetSdk 31
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -44,7 +44,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.room:room-runtime:2.3.0"
-    implementation "com.google.android.material:material:1.5.0-alpha03"
     implementation 'androidx.work:work-runtime:2.6.0'
     implementation 'androidx.work:work-runtime-ktx:2.6.0'
     implementation 'com.google.code.gson:gson:2.8.6'
