@@ -1,4 +1,4 @@
-package com.example.hhapitest.foundation.views
+package com.example.foundation.views
 
 interface HasScreenTitle {
     fun getScreenTitle(): String?

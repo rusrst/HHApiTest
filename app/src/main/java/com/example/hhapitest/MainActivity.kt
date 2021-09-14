@@ -7,10 +7,10 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.example.hhapitest.foundation.views.HasScreenTitle
+import com.example.foundation.ActivityScopeViewModel
+import com.example.foundation.views.HasScreenTitle
 import com.example.hhapitest.databinding.ActivityMainBinding
-import com.example.hhapitest.foundation.ActivityScopeViewModel
-import com.example.hhapitest.foundation.views.BaseFragment
+import com.example.foundation.views.BaseFragment
 import com.example.hhapitest.views.requestlist.RequestList
 
 class MainActivity : AppCompatActivity() {

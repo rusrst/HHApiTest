@@ -1,4 +1,4 @@
-package com.example.hhapitest.foundation.views
+package com.example.foundation.views
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
@@ -6,9 +6,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
+import com.example.foundation.ARG_SCREEN
+import com.example.foundation.ActivityScopeViewModel
 import com.example.hhapitest.AppHhTest
-import com.example.hhapitest.foundation.ARG_SCREEN
-import com.example.hhapitest.foundation.ActivityScopeViewModel
+
 import java.lang.reflect.Constructor
 
 inline fun <reified VM : ViewModel> BaseFragment.screenViewModel() = viewModels<VM> {

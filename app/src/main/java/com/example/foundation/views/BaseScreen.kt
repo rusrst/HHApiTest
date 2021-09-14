@@ -1,4 +1,4 @@
-package com.example.hhapitest.foundation.views
+package com.example.foundation.views
 
 import java.io.Serializable
 

@@ -1,4 +1,4 @@
-package com.example.hhapitest.foundation
+package com.example.foundation
 
 import android.app.Application
 import androidx.core.os.bundleOf
@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import com.example.hhapitest.MainActivity
 import com.example.hhapitest.R
-import com.example.hhapitest.foundation.utils.Event
-import com.example.hhapitest.foundation.utils.ResourceActions
-import com.example.hhapitest.foundation.navigator.Navigator
-import com.example.hhapitest.foundation.uiactions.UIActions
-import com.example.hhapitest.foundation.views.BaseScreen
-import com.example.hhapitest.foundation.views.LiveEvent
-import com.example.hhapitest.foundation.views.MutableLiveEvent
+import com.example.foundation.utils.Event
+import com.example.foundation.utils.ResourceActions
+import com.example.foundation.navigator.Navigator
+import com.example.foundation.uiactions.UIActions
+import com.example.foundation.views.BaseScreen
+import com.example.foundation.views.LiveEvent
+import com.example.foundation.views.MutableLiveEvent
 
 
 const val ARG_SCREEN = "ARG_SCREEN"

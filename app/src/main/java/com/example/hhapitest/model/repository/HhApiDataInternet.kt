@@ -2,7 +2,7 @@ package com.example.hhapitest.model.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.hhapitest.foundation.model.Repository
+import com.example.foundation.model.Repository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
