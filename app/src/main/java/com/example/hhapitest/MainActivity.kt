@@ -6,15 +6,15 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import com.example.hhapitest.views.HasScreenTitle
+import com.example.hhapitest.foundation.views.HasScreenTitle
 import com.example.hhapitest.databinding.ActivityMainBinding
-import com.example.hhapitest.views.base.BaseFragment
+import com.example.hhapitest.foundation.ActivityScopeViewModel
+import com.example.hhapitest.foundation.views.BaseFragment
 import com.example.hhapitest.views.requestlist.RequestList
 
 class MainActivity : AppCompatActivity() {
-    val mainViewModel by viewModels<MainViewModel>{ViewModelProvider.AndroidViewModelFactory(application)}
+    val mainViewModel by viewModels<ActivityScopeViewModel>{ViewModelProvider.AndroidViewModelFactory(application)}
     //private val actions = mutableListOf<() -> Unit>()
     lateinit var binding: ActivityMainBinding// binding 1
 

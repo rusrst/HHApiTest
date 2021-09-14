@@ -1,9 +1,9 @@
-package com.example.hhapitest.views.base
+package com.example.hhapitest.foundation.views
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.hhapitest.utils.Event
+import com.example.hhapitest.foundation.utils.Event
 
 
 typealias LiveEvent<T> = LiveData<Event<T>>

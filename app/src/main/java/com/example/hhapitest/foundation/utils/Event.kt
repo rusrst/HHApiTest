@@ -1,4 +1,4 @@
-package com.example.hhapitest.utils
+package com.example.hhapitest.foundation.utils
 
 class Event<T>(private val value: T) {
     private var handled: Boolean = false

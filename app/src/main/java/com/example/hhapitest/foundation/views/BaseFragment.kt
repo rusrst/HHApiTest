@@ -1,4 +1,4 @@
-package com.example.hhapitest.views.base
+package com.example.hhapitest.foundation.views
 
 import androidx.fragment.app.Fragment
 import com.example.hhapitest.MainActivity

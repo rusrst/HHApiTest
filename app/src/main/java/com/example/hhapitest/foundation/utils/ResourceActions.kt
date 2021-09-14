@@ -1,4 +1,4 @@
-package com.example.hhapitest.utils
+package com.example.hhapitest.foundation.utils
 
 
 typealias ResourceAction<T> = (T) -> Unit

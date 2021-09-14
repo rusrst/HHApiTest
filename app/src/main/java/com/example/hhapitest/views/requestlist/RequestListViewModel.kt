@@ -3,9 +3,9 @@ package com.example.hhapitest.views.requestlist
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.hhapitest.model.repository.HhApiDataInternet
-import com.example.hhapitest.views.Navigator
-import com.example.hhapitest.views.UIActions
-import com.example.hhapitest.views.base.BaseViewModel
+import com.example.hhapitest.foundation.navigator.Navigator
+import com.example.hhapitest.foundation.uiactions.UIActions
+import com.example.hhapitest.foundation.views.BaseViewModel
 
 class RequestListViewModel(
     screen: RequestList.Screen,

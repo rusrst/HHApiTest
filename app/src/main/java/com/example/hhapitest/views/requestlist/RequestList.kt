@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hhapitest.RequestAdapter
 import com.example.hhapitest.databinding.RequestListBinding
 import com.example.hhapitest.model.data.ListRequest
-import com.example.hhapitest.views.HasScreenTitle
-import com.example.hhapitest.views.base.BaseFragment
-import com.example.hhapitest.views.base.BaseScreen
-import com.example.hhapitest.views.base.screenViewModel
+import com.example.hhapitest.foundation.views.HasScreenTitle
+import com.example.hhapitest.foundation.views.BaseFragment
+import com.example.hhapitest.foundation.views.BaseScreen
+import com.example.hhapitest.foundation.views.screenViewModel
 import com.google.gson.Gson
 
-class RequestList : BaseFragment(), HasScreenTitle  {
+class RequestList : BaseFragment(), HasScreenTitle {
 
     class Screen : BaseScreen
 

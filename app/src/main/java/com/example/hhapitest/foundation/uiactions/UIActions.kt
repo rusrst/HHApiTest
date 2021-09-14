@@ -1,4 +1,4 @@
-package com.example.hhapitest.views
+package com.example.hhapitest.foundation.uiactions
 
 interface UIActions {
     fun toast (message: String)

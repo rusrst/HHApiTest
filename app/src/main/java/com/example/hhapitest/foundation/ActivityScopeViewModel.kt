@@ -1,22 +1,24 @@
-package com.example.hhapitest
+package com.example.hhapitest.foundation
 
 import android.app.Application
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
-import com.example.hhapitest.utils.Event
-import com.example.hhapitest.utils.ResourceActions
-import com.example.hhapitest.views.Navigator
-import com.example.hhapitest.views.UIActions
-import com.example.hhapitest.views.base.BaseScreen
-import com.example.hhapitest.views.base.LiveEvent
-import com.example.hhapitest.views.base.MutableLiveEvent
+import com.example.hhapitest.MainActivity
+import com.example.hhapitest.R
+import com.example.hhapitest.foundation.utils.Event
+import com.example.hhapitest.foundation.utils.ResourceActions
+import com.example.hhapitest.foundation.navigator.Navigator
+import com.example.hhapitest.foundation.uiactions.UIActions
+import com.example.hhapitest.foundation.views.BaseScreen
+import com.example.hhapitest.foundation.views.LiveEvent
+import com.example.hhapitest.foundation.views.MutableLiveEvent
 
 
 const val ARG_SCREEN = "ARG_SCREEN"
 
 
-class MainViewModel(application: Application): AndroidViewModel(application), UIActions, Navigator {
+class ActivityScopeViewModel(application: Application): AndroidViewModel(application), UIActions, Navigator {
     val whenActivityActive = ResourceActions<MainActivity>()
 
 
