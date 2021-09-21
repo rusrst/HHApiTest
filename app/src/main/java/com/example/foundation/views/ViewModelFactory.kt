@@ -4,25 +4,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.foundation.ARG_SCREEN
-import com.example.foundation.ActivityScopeViewModel
-import com.example.hhapitest.AppHhTest
+import com.example.foundation.BaseApplication
 
 import java.lang.reflect.Constructor
 
 inline fun <reified VM : ViewModel> BaseFragment.screenViewModel() = viewModels<VM> {
-    val application = requireActivity().application as AppHhTest
+    val application = requireActivity().application as BaseApplication
     val screen = requireArguments().getSerializable(ARG_SCREEN) as BaseScreen
 
-    val provider = ViewModelProvider(requireActivity(),
-        ViewModelProvider.AndroidViewModelFactory(application)
-    )
-    val mainViewModel = provider[ActivityScopeViewModel::class.java]
+    val activityScopeViewModel = (requireActivity() as FragmentsHolder).getActivityScopeViewModel()
 
 
-    val dependencies = listOf(screen, mainViewModel) + application.models
+    val dependencies = listOf(screen, activityScopeViewModel) + application.repositories
 
     ViewModelFactory(dependencies, this)
 }
