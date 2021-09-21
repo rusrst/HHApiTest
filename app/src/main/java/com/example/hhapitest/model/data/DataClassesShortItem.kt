@@ -1,6 +1,7 @@
 package com.example.hhapitest.model.data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.*
 
 data class ListRequest ( var items: List<ShortItem>?,
@@ -39,7 +40,7 @@ data class ShortItem (val id: Int?,
                       val working_days: List<NNUL?>,
                       val working_time_intervals: List<NNUL?>,
                       val working_time_modes: List<NNUL?>,
-                      val accept_temporary: Boolean?)
+                      val accept_temporary: Boolean?) : Serializable
 
 data class Department(val id: String?, val name: String?)
 

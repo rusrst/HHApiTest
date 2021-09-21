@@ -7,6 +7,7 @@ import com.example.foundation.uiactions.UIActions
 
 
 const val ARG_SCREEN = "ARG_SCREEN"
+const val ARG_STARTUP = "ARG_STARTUP"
 
 
 class ActivityScopeViewModel(val uiActions: UIActions,

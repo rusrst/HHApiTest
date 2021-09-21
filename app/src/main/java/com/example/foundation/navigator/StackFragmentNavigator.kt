@@ -9,10 +9,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.foundation.ARG_SCREEN
+import com.example.foundation.ARG_STARTUP
 import com.example.foundation.utils.Event
 import com.example.foundation.views.BaseFragment
 import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.HasScreenTitle
+import java.io.Serializable
 
 class StackFragmentNavigator(private val activity: AppCompatActivity,
                              @IdRes private val idContainer: Int,
@@ -21,8 +23,8 @@ class StackFragmentNavigator(private val activity: AppCompatActivity,
                              private val initialScreeCreator: () -> BaseScreen,
                             ) : Navigator {
     private var result : Event<Any>? = null
-    override fun launch(screen: BaseScreen){
-        launchFragment(screen)
+    override fun launch(screen: BaseScreen, result: Any?){
+        launchFragment(screen, result = result)
     }
 
     override fun goBack(result: Any?) {
@@ -45,11 +47,14 @@ class StackFragmentNavigator(private val activity: AppCompatActivity,
         activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentCallbacks)
     }
 
-    fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true){
+    fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true, result: Any? = null){
         val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
         // set screen object as fragment's argument
-        fragment.arguments = bundleOf(ARG_SCREEN to screen)
-
+        var bundle = Bundle().apply{putSerializable(ARG_SCREEN, screen)}
+        if (result != null){
+            bundle.putSerializable(ARG_STARTUP, result as Serializable) // WARRNING, THIS CODE MUST BE SEIALIZABLE
+        }
+        fragment.arguments = bundle
         val transaction = activity.supportFragmentManager.beginTransaction()
         if (addToBackStack) transaction.addToBackStack(null)
         if (animations != null){
@@ -69,8 +74,14 @@ class StackFragmentNavigator(private val activity: AppCompatActivity,
     fun notifyScreenUpdates(){
         val f = activity.supportFragmentManager.findFragmentById(idContainer)
 
-        if (activity.supportFragmentManager.backStackEntryCount > 0) activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        else activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        if (activity.supportFragmentManager.backStackEntryCount > 0) {
+            activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        }
+        else{
+            activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            activity.supportActionBar?.setDisplayShowHomeEnabled(false)
+        }
 
         if (f is HasScreenTitle && f.getScreenTitle() !=null) {
             activity.supportActionBar?.title = f.getScreenTitle()

@@ -64,6 +64,10 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
         return mainViewModel
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 /*
     private fun runWhenActive(action: () -> Unit) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {

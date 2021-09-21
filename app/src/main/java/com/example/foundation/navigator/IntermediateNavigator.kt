@@ -6,8 +6,8 @@ import com.example.foundation.views.BaseScreen
 class IntermediateNavigator : Navigator {
 
     private val targetNavigator = ResourceActions<Navigator>()
-    override fun launch(screen: BaseScreen) = targetNavigator {
-        it.launch(screen)
+    override fun launch(screen: BaseScreen, result: Any?) = targetNavigator {
+        it.launch(screen, result)
     }
 
     override fun goBack(result: Any?) = targetNavigator {

@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.example.hhapitest.model.repository.HhApiDataInternet
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
+import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.BaseViewModel
 
 class RequestListViewModel(
@@ -16,4 +17,7 @@ class RequestListViewModel(
 ) : BaseViewModel() {
     private val _data = repository.getListRequestFromUrl("https://api.hh.ru/vacancies?employer_id=1025275&area=1530&period=1&per_page=100")
     val data = _data
+    fun launch (screen: BaseScreen, result: Any?){
+        navigator.launch(screen, result)
+    }
 }

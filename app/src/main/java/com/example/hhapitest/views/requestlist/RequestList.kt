@@ -30,7 +30,7 @@ class RequestList : BaseFragment(), HasScreenTitle {
         savedInstanceState: Bundle?
     ): View {
         binding = RequestListBinding.inflate(inflater, container, false)
-        adapter = RequestAdapter()
+        adapter = RequestAdapter(viewModel)
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.requestList.layoutManager = layoutManager
