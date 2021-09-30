@@ -1,15 +1,11 @@
 package com.example.hhapitest
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foundation.navigator.IntermediateNavigator
 import com.example.hhapitest.databinding.RequestItemBinding
-import com.example.hhapitest.databinding.RequestListBinding
 import com.example.hhapitest.model.data.ShortItem
-import com.example.hhapitest.views.DetailsFragment
+import com.example.hhapitest.views.detailsfragment.DetailsFragment
 import com.example.hhapitest.views.requestlist.RequestListViewModel
 
 interface UserActionListener {

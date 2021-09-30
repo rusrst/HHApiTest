@@ -42,9 +42,9 @@ data class ShortItem (val id: Int?,
                       val working_time_modes: List<NNUL?>,
                       val accept_temporary: Boolean?) : Serializable
 
-data class Department(val id: String?, val name: String?)
+data class Department(val id: String?, val name: String?): Serializable
 
-data class TypeVacancy(val id: String, val name: String)
+data class TypeVacancy(val id: String, val name: String): Serializable
 data class AdressRequest (val city: String?,
                           val street: String?,
                           val building: String?,
@@ -54,14 +54,14 @@ data class AdressRequest (val city: String?,
                           val raw: String?,
                           val metro: String?,
                           val metro_stations: List<NNUL?>,
-                          val id: Int)
+                          val id: Int): Serializable
 
-data class Employer(val id: Int, val name: String, val url: String, val alternate_url: String, val logo_urls: LogoUrls, val vacancies_url: String, val trusted: Boolean)
+data class Employer(val id: Int, val name: String, val url: String, val alternate_url: String, val logo_urls: LogoUrls, val vacancies_url: String, val trusted: Boolean): Serializable
 
-data class LogoUrls(@SerializedName("240")val size_240: String, @SerializedName("90") val size_90: String, val original: String)
+data class LogoUrls(@SerializedName("240")val size_240: String, @SerializedName("90") val size_90: String, val original: String): Serializable
 
-data class Snippet(val requirement: String, val responsibility: String)
+data class Snippet(val requirement: String, val responsibility: String): Serializable
 
-data class Schedule(val id: String, val name: String)
+data class Schedule(val id: String, val name: String): Serializable
 
-data class NNUL(val str: String?)
+data class NNUL(val str: String?): Serializable

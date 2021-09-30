@@ -46,8 +46,6 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
     override fun onResume() {
         super.onResume()
         mainViewModel.navigator.setTarget(navigator)
-        //actions.forEach { it() }
-        //actions.clear()
     }
 
     override fun onPause() {

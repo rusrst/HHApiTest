@@ -1,16 +1,13 @@
-package com.example.hhapitest.views
+package com.example.hhapitest.views.detailsfragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.foundation.ARG_STARTUP
 import com.example.foundation.views.*
 import com.example.hhapitest.databinding.DetailsItemBinding
-import com.example.hhapitest.databinding.RequestListBinding
 import com.example.hhapitest.model.data.ShortItem
-import com.example.hhapitest.views.requestlist.RequestListViewModel
 import java.util.*
 
 class DetailsFragment(): BaseFragment(), HasScreenTitle {
@@ -21,6 +18,10 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
     }
     private lateinit var binding: DetailsItemBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if(viewModel.detailItem==null) viewModel.detailItem = arguments?.getSerializable(ARG_STARTUP) as ShortItem
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,10 +29,18 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
     ): View? {
         binding = DetailsItemBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val detailsItem = arguments?.getSerializable(ARG_STARTUP) as ShortItem
+        if(viewModel.detailItem != null){
+            updateUI(viewModel.detailItem!!)
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+
+    fun updateUI(detailsItem: ShortItem){
         binding.name.text = detailsItem.name ?: ""
         binding.city.text = detailsItem.address?.city
         binding.adress.text = detailsItem.address?.street
@@ -41,4 +50,5 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
         binding.requirementDetails.text = detailsItem.snippet?.requirement
         binding.responsibilityDetails.text = detailsItem.snippet?.responsibility
     }
+
 }
