@@ -1,10 +1,14 @@
 package com.example.hhapitest.views.requestlist
 
+import android.content.BroadcastReceiver
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foundation.model.ErrorResult
+import com.example.foundation.model.PendingResult
+import com.example.foundation.model.SuccessResult
 import com.example.hhapitest.RequestAdapter
 import com.example.hhapitest.databinding.RequestListBinding
 import com.example.hhapitest.model.data.ListRequest
@@ -12,6 +16,8 @@ import com.example.foundation.views.HasScreenTitle
 import com.example.foundation.views.BaseFragment
 import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.screenViewModel
+import com.example.hhapitest.databinding.PartResultBinding
+import com.example.hhapitest.views.renderSimpleResult
 import com.google.gson.Gson
 
 class RequestList : BaseFragment(), HasScreenTitle {
@@ -35,14 +41,21 @@ class RequestList : BaseFragment(), HasScreenTitle {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.requestList.layoutManager = layoutManager
         binding.requestList.adapter = adapter
+        val resultBinding = PartResultBinding.bind(binding.root)
 
-        viewModel.data.observe(viewLifecycleOwner, {
-            val gson = Gson()
-            val data = gson.fromJson(it, ListRequest::class.java)
-             adapter.items = data.items ?: emptyList()
-            title = "In page = ${data.items?.size ?: 0}"
-            notifyScreenUpdates()
+        viewModel.getListRequestFromUrl()
+        viewModel.liveListShortItem.observe(viewLifecycleOwner, {result ->
+
+            renderSimpleResult(root = binding.root,
+            result = result,
+            onSuccess = {
+                adapter.items = it ?: emptyList()
+                title = "In page = ${it?.size ?: 0}"
+                notifyScreenUpdates()
+            })
         })
+
+
         return binding.root
     }
 

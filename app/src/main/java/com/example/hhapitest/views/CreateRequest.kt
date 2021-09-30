@@ -22,9 +22,10 @@ class CreateRequest(): Fragment() {
         binding = CreateRequestBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
+    /*
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val data = hhApiDataInternet.getListRequestFromUrl("https://api.hh.ru/vacancies?area=1531&period=1")
+        val data = hhApiDataInternet.getListRequestFromUrl("https://api.hh.ru/vacancies?area=1531&period=1", null)
         /*
         val gson = Gson()
         val data = gson.fromJson("{\"items\":[" +
@@ -43,4 +44,6 @@ class CreateRequest(): Fragment() {
 
         // */
     }
+
+     */
 }
