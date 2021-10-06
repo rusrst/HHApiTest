@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
     }
     //private val actions = mutableListOf<() -> Unit>()
     lateinit var binding: ActivityMainBinding// binding 1
-    lateinit private var navigator: StackFragmentNavigator
+    private lateinit var navigator: StackFragmentNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

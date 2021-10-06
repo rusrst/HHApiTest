@@ -43,4 +43,22 @@ class HhApiDataInternet(): Repository {
         return _stringLiveData
     }
 
+    fun getStringDataBigItem(url: String, dataListener: DataListener? ): LiveResult<String>{
+        val stringDataBigItem: MutableLiveResult<String> = MutableLiveData(PendingResult())
+        val data: Call<String> = hhAPI.getData(url)
+        data.enqueue(object  : Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                stringDataBigItem.value = ErrorResult(Exception())
+                dataListener?.invoke(ErrorResult<String>(exception = Exception()))
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                stringDataBigItem.value = SuccessResult(response.body().toString())
+                dataListener?.invoke(SuccessResult(response.body().toString()))
+            }
+        })
+
+        return stringDataBigItem
+    }
+
 }

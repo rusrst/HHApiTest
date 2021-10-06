@@ -43,7 +43,7 @@ class RequestAdapter (private val navigator: RequestListViewModel): RecyclerView
         holder.binding.responsibility.text = currentItem.snippet?.responsibility
         holder.binding.requirement.text = currentItem.snippet?.requirement
         holder.binding.root.setOnClickListener{
-                navigator.launch(DetailsFragment.Screen(), currentItem)
+                navigator.launch(DetailsFragment.Screen(), currentItem.alternate_url)
         }
     }
 

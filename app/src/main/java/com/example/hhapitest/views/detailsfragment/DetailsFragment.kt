@@ -1,13 +1,19 @@
 package com.example.hhapitest.views.detailsfragment
 
 import android.os.Bundle
+import android.util.Base64
+import android.util.Base64.encodeToString
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.example.foundation.ARG_STARTUP
 import com.example.foundation.views.*
 import com.example.hhapitest.databinding.DetailsItemBinding
 import com.example.hhapitest.model.data.ShortItem
+import com.example.hhapitest.views.renderSimpleResult
 import java.util.*
 
 class DetailsFragment(): BaseFragment(), HasScreenTitle {
@@ -19,7 +25,7 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
     private lateinit var binding: DetailsItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(viewModel.detailItem==null) viewModel.detailItem = arguments?.getSerializable(ARG_STARTUP) as ShortItem
+        if(savedInstanceState == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)?.substringBefore("?")
         super.onCreate(savedInstanceState)
     }
     override fun onCreateView(
@@ -33,13 +39,28 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(viewModel.detailItem != null){
-            updateUI(viewModel.detailItem!!)
+        if(viewModel.urlItem != null){
+            viewModel.getStringDataBigItem(viewModel.urlItem ?: "")
         }
+        binding.webView.webViewClient = object: WebViewClient(){
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+            }
+        }
+        viewModel.liveBigItem.observe(viewLifecycleOwner, {result ->
+
+            renderSimpleResult(root = binding.root,
+                result = result,
+                onSuccess = {
+                    val str = Base64.encodeToString(it?.toByteArray(), Base64.NO_PADDING)
+                    binding.webView.loadData(str, "text/html", "base64")
+                })
+        })
+
         super.onViewCreated(view, savedInstanceState)
     }
 
-
+/*
     fun updateUI(detailsItem: ShortItem){
         binding.name.text = detailsItem.name ?: ""
         binding.city.text = detailsItem.address?.city
@@ -50,5 +71,7 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
         binding.requirementDetails.text = detailsItem.snippet?.requirement
         binding.responsibilityDetails.text = detailsItem.snippet?.responsibility
     }
+
+ */
 
 }
