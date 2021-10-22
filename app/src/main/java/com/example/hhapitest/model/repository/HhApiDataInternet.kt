@@ -29,16 +29,12 @@ class HhApiDataInternet(private val taskFactory: TaskFactory): HHApiDataReposito
     }
 
 
-    override fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<FinalResult<String>> =
+    override fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<String> =
         taskFactory.async {
             val data: Call<String> = hhAPI.getData(url)
-            try {
                 val response = data.execute()
-                return@async SuccessResult(response.body().toString())
-            }
-            catch (e: Exception){
-                return@async ErrorResult(e)
-            }
+                return@async response.body().toString()
+
         }
 
 

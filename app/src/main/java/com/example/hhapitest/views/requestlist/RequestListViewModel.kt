@@ -40,7 +40,7 @@ class RequestListViewModel(
         }
     }
 
-    fun truAgain(){
+    fun tryAgain(){
         load()
     }
         fun getListRequestFromUrl() = load()

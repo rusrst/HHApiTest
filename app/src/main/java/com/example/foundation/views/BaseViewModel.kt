@@ -33,7 +33,7 @@ open class BaseViewModel: ViewModel() {
         super.onCleared()
     }
 
-    fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
+    private fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
         tasks.add(this)
         this.enqueue{
             tasks.remove(this)

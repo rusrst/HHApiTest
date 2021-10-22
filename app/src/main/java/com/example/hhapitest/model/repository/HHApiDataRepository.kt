@@ -7,5 +7,5 @@ import com.example.foundation.model.tasks.Task
 import com.example.foundation.views.LiveResult
 
 interface HHApiDataRepository : Repository {
-    fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<FinalResult<String>>
+    fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<String>
 }
