@@ -3,6 +3,8 @@ package com.example.hhapitest.model.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foundation.model.*
+import com.example.foundation.model.tasks.Task
+import com.example.foundation.model.tasks.TaskFactory
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.views.requestlist.Listener
@@ -15,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 typealias DataListener = (Result<String>) -> Unit
 
-class HhApiDataInternet(): Repository {
+class HhApiDataInternet(private val taskFactory: TaskFactory): HHApiDataRepository {
     private var hhAPI: HhAPI
     private val _stringLiveData: MutableLiveResult<String> = MutableLiveData(PendingResult())
     init {
@@ -27,10 +29,24 @@ class HhApiDataInternet(): Repository {
     }
 
 
-    fun getListRequestFromUrl(url: String, dataListener: DataListener?): LiveResult<String> {
+    override fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<FinalResult<String>> =
+        taskFactory.async {
+            val data: Call<String> = hhAPI.getData(url)
+            try {
+                val response = data.execute()
+                return@async SuccessResult(response.body().toString())
+            }
+            catch (e: Exception){
+                return@async ErrorResult(e)
+            }
+        }
+
+
+/*
         val data: Call<String> = hhAPI.getData(url)
         data.enqueue(object  : Callback<String> {
             override fun onFailure(call: Call<String>, t: Throwable) {
+                _stringLiveData.value = ErrorResult(Exception())
                 dataListener?.invoke(ErrorResult<String>(exception = Exception()))
             }
 
@@ -41,24 +57,7 @@ class HhApiDataInternet(): Repository {
         })
         _stringLiveData.value = PendingResult()
         return _stringLiveData
-    }
 
-    fun getStringDataBigItem(url: String, dataListener: DataListener? ): LiveResult<String>{
-        val stringDataBigItem: MutableLiveResult<String> = MutableLiveData(PendingResult())
-        val data: Call<String> = hhAPI.getData(url)
-        data.enqueue(object  : Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                stringDataBigItem.value = ErrorResult(Exception())
-                dataListener?.invoke(ErrorResult<String>(exception = Exception()))
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                stringDataBigItem.value = SuccessResult(response.body().toString())
-                dataListener?.invoke(SuccessResult(response.body().toString()))
-            }
-        })
-
-        return stringDataBigItem
-    }
+ */
 
 }

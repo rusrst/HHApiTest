@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
-import com.example.foundation.model.ErrorResult
-import com.example.foundation.model.PendingResult
-import com.example.foundation.model.Result
-import com.example.foundation.model.SuccessResult
+import com.example.foundation.model.*
 import com.example.hhapitest.model.repository.HhApiDataInternet
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
@@ -43,19 +40,31 @@ class RequestListViewModel(
         }
     }
 
-    fun getListRequestFromUrl() = repository.getListRequestFromUrl("https://api.hh.ru/vacancies?employer_id=1025275&area=1530&period=1&per_page=100", dataListener)
+    fun truAgain(){
+        load()
+    }
+        fun getListRequestFromUrl() = load()
 
-    private val _data:MutableLiveResult<String> = MutableLiveData(PendingResult())
-    private var _liveListShortItem: LiveResult<List<ShortItem>?> = Transformations.map(_data) { result ->
-        if (result is SuccessResult){
-        val gson = Gson()
-        val data = gson.fromJson(result.data, ListRequest::class.java)
-        return@map SuccessResult(data.items)
-    }
-        return@map result as Result<List<ShortItem>?>
-    }
-    val liveListShortItem: LiveResult<List<ShortItem>?> = _liveListShortItem
-    fun launch (screen: BaseScreen, result: Any?){
-        navigator.launch(screen, result)
-    }
+
+        private val _data = MutableLiveResult<String>(PendingResult())
+        private var _liveListShortItem: LiveResult<List<ShortItem>?> = Transformations.map(_data) { result ->
+            if (result is SuccessResult){
+                val gson = Gson()
+                Log.d("TAG", "${result.data}")
+                val data = gson.fromJson(result.data, ListRequest::class.java)
+                return@map SuccessResult(data.items)
+            }
+            return@map result as Result<List<ShortItem>?>
+        }
+        val liveListShortItem: LiveResult<List<ShortItem>?> = _liveListShortItem
+        fun launch (screen: BaseScreen, result: Any?){
+            navigator.launch(screen, result)
+        }
+
+        private fun load(){
+            repository.getRequestFromUrl("https://api.hh.ru/vacancies?employer_id=1025275&area=1530&period=1&per_page=100", null)
+                .into(_data)
+
+        }
+
 }

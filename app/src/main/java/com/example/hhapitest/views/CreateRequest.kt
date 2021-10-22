@@ -13,7 +13,7 @@ import com.google.gson.Gson
 class CreateRequest(): Fragment() {
     var string = ""
     private lateinit var binding: CreateRequestBinding
-    val hhApiDataInternet by lazy<HhApiDataInternet> {  HhApiDataInternet() }
+    //val hhApiDataInternet by lazy<HhApiDataInternet> {  HhApiDataInternet() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -2,8 +2,6 @@ package com.example.hhapitest.views.detailsfragment
 
 import android.os.Bundle
 import android.util.Base64
-import android.util.Base64.encodeToString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import android.webkit.WebViewClient
 import com.example.foundation.ARG_STARTUP
 import com.example.foundation.views.*
 import com.example.hhapitest.databinding.DetailsItemBinding
-import com.example.hhapitest.model.data.ShortItem
 import com.example.hhapitest.views.renderSimpleResult
 import java.util.*
 
@@ -40,7 +37,7 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if(viewModel.urlItem != null){
-            viewModel.getStringDataBigItem(viewModel.urlItem ?: "")
+            viewModel.getStringData(viewModel.urlItem ?: "")
         }
         binding.webView.webViewClient = object: WebViewClient(){
             override fun onPageFinished(view: WebView?, url: String?) {

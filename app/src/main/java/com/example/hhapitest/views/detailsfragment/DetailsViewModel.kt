@@ -12,12 +12,8 @@ import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
-import com.example.hhapitest.model.data.ListRequest
-import com.example.hhapitest.model.data.ShortItem
 import com.example.hhapitest.model.repository.DataListener
 import com.example.hhapitest.model.repository.HhApiDataInternet
-import com.example.hhapitest.views.requestlist.RequestList
-import com.google.gson.Gson
 import java.lang.Exception
 
 
@@ -37,9 +33,12 @@ class DetailsViewModel(screen: DetailsFragment.Screen,
         }
     }
 
-    fun getStringDataBigItem (url: String) =
-        if (url != "") repository.getStringDataBigItem(url, dataListener)
-        else throw Exception("IllegalArgumentException")
+    fun tryAgain() = load(urlItem)
+
+    fun getStringData (url: String) {
+        load(url)
+    }
+
 
     private var _liveBigItem: LiveResult<String?> = Transformations.map(_data) { result ->
         if (result is SuccessResult){
@@ -49,5 +48,12 @@ class DetailsViewModel(screen: DetailsFragment.Screen,
     }
     val liveBigItem: LiveResult<String?> = _liveBigItem
 
+    private fun load(url: String?){
+        if (url != "" && url != null) {
+            urlItem = url
+            repository.getRequestFromUrl(url, null).into(_data)
+        }
+        else throw Exception("IllegalArgumentException")
+    }
 
 }
