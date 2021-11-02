@@ -17,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 typealias DataListener = (Result<String>) -> Unit
 
-class HhApiDataInternet(private val taskFactory: TaskFactory): HHApiDataRepository {
+class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDataRepository {
     private var hhAPI: HhAPI
     private val _stringLiveData: MutableLiveResult<String> = MutableLiveData(PendingResult())
     init {

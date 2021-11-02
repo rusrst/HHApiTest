@@ -5,6 +5,7 @@ import android.os.Looper
 import com.example.foundation.model.ErrorResult
 import com.example.foundation.model.FinalResult
 import com.example.foundation.model.SuccessResult
+import com.example.foundation.model.tasks.dispatchers.Dispatcher
 import java.lang.Exception
 
 private val handler = Handler(Looper.getMainLooper())
@@ -15,12 +16,12 @@ class SimpleTasksFactory() : TaskFactory {
         return SimpleTask(body)
     }
 
-    class SimpleTask<T>(private val body: TaskBody<T>): Task<T>{
+    class SimpleTask<T>( private val body: TaskBody<T>): Task<T>{
         var thread : Thread? = null
         var cancelled = false
         override fun await(): T = body ()
 
-        override fun enqueue(listener: TaskListener<T>) {
+        override fun enqueue(dispatcher: Dispatcher,listener: TaskListener<T>) {
             thread = Thread{
                 try {
                     val data = body()

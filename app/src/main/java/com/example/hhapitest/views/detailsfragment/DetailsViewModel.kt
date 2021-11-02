@@ -7,20 +7,22 @@ import com.example.foundation.model.ErrorResult
 import com.example.foundation.model.PendingResult
 import com.example.foundation.model.Result
 import com.example.foundation.model.SuccessResult
+import com.example.foundation.model.tasks.dispatchers.Dispatcher
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.model.repository.DataListener
-import com.example.hhapitest.model.repository.HhApiDataInternet
+import com.example.hhapitest.model.repository.HhApiDataInternetRepository
 import java.lang.Exception
 
 
 class DetailsViewModel(screen: DetailsFragment.Screen,
                        private val navigator: Navigator,
                        private val uiActions: UIActions,
-                       private val repository: HhApiDataInternet,) : BaseViewModel() {
+                       private val repository: HhApiDataInternetRepository,
+                       dispatcher: Dispatcher) : BaseViewModel(dispatcher) {
     var urlItem: String? = null
     private val _data:MutableLiveResult<String> = MutableLiveData(PendingResult())
     //listener is needed to update the value of a variable
