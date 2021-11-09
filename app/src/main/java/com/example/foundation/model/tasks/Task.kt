@@ -6,6 +6,8 @@ import com.example.foundation.model.tasks.dispatchers.Dispatcher
 
 
 typealias TaskListener<T> = (FinalResult<T>) -> Unit
+
+class CancelledException : Exception()
 interface Task<T> {
     fun await (): T
 
