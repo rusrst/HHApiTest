@@ -1,12 +1,14 @@
 package com.example.foundation.model.tasks
 
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.hhapitest.R
 import java.util.concurrent.atomic.AtomicBoolean
 
-class SynchronizedTask(private val task: Task<T>)
-    : Task<T> {
+class SynchronizedTask<T>(
+    private val task: Task<T>
+) : Task<T>{
 
-   @Volatile private var cancelled = false
+@Volatile private var cancelled = false
     private var executed = false
 
     private var listenerCalled = AtomicBoolean(false)
