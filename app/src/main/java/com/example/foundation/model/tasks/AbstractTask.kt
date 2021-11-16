@@ -4,6 +4,7 @@ import com.example.foundation.model.ErrorResult
 import com.example.foundation.model.FinalResult
 import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.foundation.model.tasks.factories.TaskBody
 import com.example.foundation.utils.delegates.Await
 import java.lang.Exception
 import java.net.CacheRequest
@@ -44,6 +45,15 @@ abstract class AbstractTask<T>() : Task<T> {
     final override fun cancel() {
         finalResult = ErrorResult(CancelledException())
         doCancel()
+    }
+
+    fun executeBody(taskBody: TaskBody<T>, listener: TaskListener<T>) {
+        try {
+            val data = taskBody()
+            listener(SuccessResult(data))
+        } catch (e: Exception) {
+            listener(ErrorResult(e))
+        }
     }
 
     abstract fun doEnqueue(listener: TaskListener<T>)

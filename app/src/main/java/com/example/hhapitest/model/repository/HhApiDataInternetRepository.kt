@@ -1,16 +1,11 @@
 package com.example.hhapitest.model.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foundation.model.*
 import com.example.foundation.model.tasks.Task
-import com.example.foundation.model.tasks.TaskFactory
-import com.example.foundation.views.LiveResult
+import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.views.MutableLiveResult
-import com.example.hhapitest.views.requestlist.Listener
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
