@@ -3,11 +3,12 @@ package com.example.hhapitest.views.requestlist
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
 import com.example.foundation.model.*
-import com.example.hhapitest.model.repository.HhApiDataInternet
+import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.foundation.model.tasks.factories.TaskFactory
+import com.example.hhapitest.model.repository.HhApiDataInternetRepository
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseScreen
@@ -26,10 +27,11 @@ class RequestListViewModel(
     screen: RequestList.Screen,
     private val navigator: Navigator,
     private val uiActions: UIActions,
-    private val repository: HhApiDataInternet,
-    savedStateHandle: SavedStateHandle
-) : BaseViewModel() {
-
+    private val repository: HhApiDataInternetRepository,
+    private val taskFactory: TaskFactory,
+    savedStateHandle: SavedStateHandle,
+    dispatcher: Dispatcher
+) : BaseViewModel(dispatcher) {
     //listener is needed to update the value of a variable
     //we don't subscribe to the original return value in the fragment
     private val dataListener: DataListener ={result ->

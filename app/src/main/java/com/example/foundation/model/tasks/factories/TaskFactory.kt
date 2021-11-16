@@ -1,4 +1,6 @@
-package com.example.foundation.model.tasks
+package com.example.foundation.model.tasks.factories
+
+import com.example.foundation.model.tasks.Task
 
 
 typealias TaskBody<T> = () -> T
