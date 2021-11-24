@@ -34,7 +34,7 @@ open class BaseViewModel(private val dispatcher: Dispatcher): ViewModel() {
         super.onCleared()
     }
 
-    private fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
+     fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
         tasks.add(this)
         this.enqueue(dispatcher = dispatcher){
             tasks.remove(this)

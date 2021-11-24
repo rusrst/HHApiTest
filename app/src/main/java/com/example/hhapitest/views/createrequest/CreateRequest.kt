@@ -59,7 +59,8 @@ class CreateRequest(): BaseFragment() {
                     val myTextView = layoutInflater.inflate(R.layout.round_textview, null) as TextView
                     myTextView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                     myTextView.text = it.toString()
-                    binding.createRequestConstrainLayout.addView(myTextView)
+                    binding.createRequestScrollView.addView(myTextView)
+                    viewModel.addAreaRoomList(it)
                     notifyScreenUpdates()
                 })
         }
