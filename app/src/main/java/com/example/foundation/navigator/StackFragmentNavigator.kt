@@ -5,7 +5,6 @@ import android.view.View
 import androidx.annotation.AnimRes
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.foundation.ARG_SCREEN
@@ -47,7 +46,7 @@ class StackFragmentNavigator(private val activity: AppCompatActivity,
         activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentCallbacks)
     }
 
-    fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true, result: Any? = null){
+    private fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true, result: Any? = null){
         val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
         // set screen object as fragment's argument
         var bundle = Bundle().apply{putSerializable(ARG_SCREEN, screen)}

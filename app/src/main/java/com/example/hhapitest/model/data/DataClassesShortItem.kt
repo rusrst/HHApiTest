@@ -2,7 +2,6 @@ package com.example.hhapitest.model.data
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.util.*
 
 data class ListRequest ( var items: List<ShortItem>?,
                         var found: Int?,
@@ -22,7 +21,7 @@ data class ShortItem (val id: Int?,
                       val area: ShortArea?,
                       val salary: ShortSalary?,
                       val type: TypeVacancy?,
-                      val address: AdressRequest?,
+                      val address: AddressRequest?,
                       val response_url: String?,
                       val sort_point_distance: String?,
                       val published_at: String?,
@@ -45,16 +44,16 @@ data class ShortItem (val id: Int?,
 data class Department(val id: String?, val name: String?): Serializable
 
 data class TypeVacancy(val id: String, val name: String): Serializable
-data class AdressRequest (val city: String?,
-                          val street: String?,
-                          val building: String?,
-                          val description: String?,
-                          val lat: Double?,
-                          val lng: Double?,
-                          val raw: String?,
-                          val metro: String?,
-                          val metro_stations: List<NNUL?>,
-                          val id: Int): Serializable
+data class AddressRequest (val city: String?,
+                           val street: String?,
+                           val building: String?,
+                           val description: String?,
+                           val lat: Double?,
+                           val lng: Double?,
+                           val raw: String?,
+                           val metro: String?,
+                           val metro_stations: List<NNUL?>,
+                           val id: Int): Serializable
 
 data class Employer(val id: Int, val name: String, val url: String, val alternate_url: String, val logo_urls: LogoUrls, val vacancies_url: String, val trusted: Boolean): Serializable
 

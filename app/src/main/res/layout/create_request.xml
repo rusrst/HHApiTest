@@ -2,11 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/createRequestConstrainLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewEnterNameCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -25,20 +26,22 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="Город"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/textViewEnterNameCity"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEnterNameCity" />
 
     <Button
         android:id="@+id/addCityButton"
         android:layout_width="93dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:text="+"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addCityEditText"
         app:layout_constraintTop_toTopOf="@+id/addCityEditText" />
 
     <HorizontalScrollView
+        android:id="@+id/horizontalScrollViewCreateRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -54,5 +57,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal" />
     </HorizontalScrollView>
+    <include layout="@layout/part_result"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

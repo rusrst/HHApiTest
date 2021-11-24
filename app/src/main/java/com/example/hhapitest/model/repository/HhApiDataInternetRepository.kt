@@ -5,16 +5,20 @@ import com.example.foundation.model.*
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.views.MutableLiveResult
+import com.example.hhapitest.model.data.Area
+import com.example.hhapitest.model.json.GetListAreas
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 typealias DataListener = (Result<String>) -> Unit
+typealias DataListenerList = (Result<List<Area>>) -> Unit
 
 class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDataRepository {
     private var hhAPI: HhAPI
     private val _stringLiveData: MutableLiveResult<String> = MutableLiveData(PendingResult())
+
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://google.com/")
@@ -27,10 +31,24 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
     override fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<String> =
         taskFactory.async {
             val data: Call<String> = hhAPI.getData(url)
-                val response = data.execute()
-                return@async response.body().toString()
-
+            val response = data.execute()
+            return@async response.body().toString()
         }
+
+    fun getRequestFromUrlWithJsonParser(
+        url: String,
+        dataListenerList: DataListenerList?,
+        jsonParser: GetListAreas
+    ): Task<List<Area>> = taskFactory.async {
+        val data = taskFactory.async {
+            val data: Call<String> = hhAPI.getData(url)
+            val response = data.execute()
+            return@async response.body().toString()
+        }.await()
+        return@async taskFactory.async {
+            return@async jsonParser(data)
+        }.await()
+    }
 
 
 /*
@@ -50,5 +68,4 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
         return _stringLiveData
 
  */
-
 }

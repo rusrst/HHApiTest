@@ -1,17 +1,22 @@
-package com.example.hhapitest.views
+package com.example.hhapitest.views.createrequest
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import com.example.foundation.views.BaseFragment
 import com.example.foundation.views.BaseScreen
+import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.R
 import com.example.hhapitest.databinding.CreateRequestBinding
+import com.example.hhapitest.databinding.PartResultBinding
+import com.example.hhapitest.model.data.Area
+import com.example.hhapitest.views.renderSimpleResult
 
 
-class CreateRequest(): Fragment() {
+class CreateRequest(): BaseFragment() {
+    override val viewModel by screenViewModel<CreateRequestViewModel>()
     class Screen : BaseScreen
     var string = ""
     private lateinit var binding: CreateRequestBinding
@@ -26,7 +31,7 @@ class CreateRequest(): Fragment() {
         return binding.root
     }
 
-
+/*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.addCityButton.setOnClickListener {
             if (binding.addCityEditText.editableText.toString() != ""){
@@ -40,4 +45,27 @@ class CreateRequest(): Fragment() {
             }
         }
     }
+    */
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getListAreas()
+        val resultBinding = PartResultBinding.bind(binding.root)
+        viewModel.data.observe(viewLifecycleOwner){ result ->
+
+            renderSimpleResult(root = binding.root,
+                result = result,
+                onSuccess = {
+                    val myTextView = layoutInflater.inflate(R.layout.round_textview, null) as TextView
+                    myTextView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    myTextView.text = it.toString()
+                    binding.createRequestConstrainLayout.addView(myTextView)
+                    notifyScreenUpdates()
+                })
+        }
+        resultBinding.tryAgainButton.setOnClickListener {
+            viewModel.tryAgain{ viewModel.getListAreas() }
+        }
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.example.hhapitest.views.requestlist
 
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
@@ -34,13 +33,15 @@ class RequestListViewModel(
 ) : BaseViewModel(dispatcher) {
     //listener is needed to update the value of a variable
     //we don't subscribe to the original return value in the fragment
-    private val dataListener: DataListener ={result ->
+    /*private val dataListener: DataListener = {result ->
         when(result){
             is ErrorResult -> _data.postValue(result)
             is PendingResult -> _data.postValue(PendingResult())
             is SuccessResult -> _data.postValue(result)
         }
     }
+
+     */
 
     fun tryAgain(){
         load()
@@ -52,7 +53,6 @@ class RequestListViewModel(
         private var _liveListShortItem: LiveResult<List<ShortItem>?> = Transformations.map(_data) { result ->
             if (result is SuccessResult){
                 val gson = Gson()
-                Log.d("TAG", "${result.data}")
                 val data = gson.fromJson(result.data, ListRequest::class.java)
                 return@map SuccessResult(data.items)
             }
@@ -70,3 +70,4 @@ class RequestListViewModel(
         }
 
 }
+
