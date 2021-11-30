@@ -3,7 +3,10 @@ package com.example.hhapitest.model.data.database
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
+import com.example.foundation.model.ErrorResult
+import com.example.foundation.model.FinalResult
 import com.example.foundation.model.PendingResult
+import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.TaskListener
 import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
@@ -43,6 +46,16 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
             }
         }.safeEnqueue()
         }
+    fun checkDatabaseOfAreas (): Task<AreaRoom?>{
+       return taskFactory.async {
+            try {
+                return@async databaseDAO.getAreaFromRoomNoLiveData(113)
+            }
+            catch (e: Exception){
+                throw Exception ("ERROR ACCESS  DATABASE")
+            }
+        }
+    }
 
 
 

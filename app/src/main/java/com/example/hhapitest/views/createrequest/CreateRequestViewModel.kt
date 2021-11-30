@@ -1,7 +1,12 @@
 package com.example.hhapitest.views.createrequest
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import com.example.foundation.model.ErrorResult
 import com.example.foundation.model.PendingResult
+import com.example.foundation.model.Result
+import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
 import com.example.foundation.navigator.Navigator
@@ -9,11 +14,11 @@ import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
+import com.example.hhapitest.R
 import com.example.hhapitest.model.data.*
 import com.example.hhapitest.model.data.database.RoomRepository
 import com.example.hhapitest.model.json.Json
 import com.example.hhapitest.model.repository.HhApiDataInternetRepository
-import java.lang.Exception
 
 class CreateRequestViewModel(screen: CreateRequest.Screen,
                              private val navigator: Navigator,
@@ -24,11 +29,18 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
 ) : BaseViewModel(dispatcher) {
     private val tasks = mutableSetOf<Task<*>>()
     private var currentTask: Task<List<Area>>? = null
+    private val _state = MutableLiveData(State(null))
+    val state: LiveData<State> = _state
 
+    private val _listAreas = MutableLiveResult<List<Area>>(PendingResult())
+    val listAreas: LiveResult<List<Area>> = _listAreas
 
-    private val _data = MutableLiveResult<List<Area>>(PendingResult())
-    val data: LiveResult<List<Area>> = _data
-
+    private val _checkDatabaseOfAreas = MutableLiveResult<AreaRoom?>(PendingResult())
+    val checkingDatabaseOfAreas: LiveResult<Boolean> = Transformations.map(_checkDatabaseOfAreas){result ->
+        if (result is SuccessResult && result.data != null) return@map SuccessResult(true)
+        else if (result is SuccessResult) return@map SuccessResult(false)
+        else return@map ErrorResult(Exception())
+    }
 
     fun tryAgain(func: (() -> Unit)? = null){
         func?.invoke()
@@ -38,10 +50,10 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
         currentTask = repository.getRequestFromUrlWithJsonParser(url, null){
             Json.getListAreas(it)
         }.also { task->
-            _data.value = PendingResult()
+            _listAreas.value = PendingResult()
             task.enqueue(dispatcher){
                 currentTask = null
-                _data.value = it
+                _listAreas.value = it
             }
         }
     }
@@ -52,6 +64,25 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
             list.add(areaRoom)
         }
         roomRepository.addAreasRoom(list)
-        Log.d("TAG", "DB END")
     }
+    fun checkDatabaseOfAreas() {
+        roomRepository.checkDatabaseOfAreas().enqueue(dispatcher){
+            _checkDatabaseOfAreas.value = it
+        }
+    }
+    fun checkDatabaseOfAreasEnd(result: Result<Boolean>){
+        if (result is SuccessResult && result.data) return
+        else if((result is SuccessResult && !result.data)){
+            _state.value = State(DataSimpleDialog(uiActions.getString(R.string.no_areas_title), uiActions.getString(R.string.no_areas_text)))
+        }
+    }
+
+
+    data class State(
+        val dataSimpleDialog: DataSimpleDialog?
+    ) {
+        val showDialog: Boolean get() =  dataSimpleDialog != null
+    }
+    data class DataSimpleDialog(val title: String?,
+    val text: String?)
 }

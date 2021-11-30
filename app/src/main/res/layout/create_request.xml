@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/createRequestConstrainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/createRequestScrollView"
@@ -64,7 +64,9 @@
             android:layout_height="match_parent"
             android:orientation="horizontal" />
     </HorizontalScrollView>
-    <include layout="@layout/part_result"
-        android:visibility="gone"/>
+
+    <include
+        layout="@layout/part_result"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

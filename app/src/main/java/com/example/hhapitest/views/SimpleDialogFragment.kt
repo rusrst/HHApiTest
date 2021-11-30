@@ -1,0 +1,28 @@
+package com.example.hhapitest.views
+
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
+
+class SimpleDialogFragment(private val title: String?, val text: String?) : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val listener = DialogInterface.OnClickListener { _, which ->
+            parentFragmentManager.setFragmentResult(KEY, bundleOf(TAG to which))
+        }
+        return AlertDialog.Builder(requireContext())
+            .setCancelable(true)
+            .setPositiveButton("YES", listener)
+            .setNegativeButton("NO", listener)
+            .setTitle(title)
+            .setMessage(text)
+            .create()
+    }
+    companion object{
+        const val KEY = "SimpleDialog"
+        const val TAG = "DefaultRequest"
+        const val KEY_RESPONSE = "RESPONSE"
+    }
+}

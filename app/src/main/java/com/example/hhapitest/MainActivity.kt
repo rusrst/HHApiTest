@@ -9,6 +9,7 @@ import com.example.foundation.uiactions.AndroidUIActions
 import com.example.foundation.utils.viewModelCreator
 import com.example.foundation.views.FragmentsHolder
 import com.example.hhapitest.databinding.ActivityMainBinding
+import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.views.createrequest.CreateRequest
 import com.example.hhapitest.views.requestlist.RequestList
 
