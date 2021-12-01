@@ -15,6 +15,8 @@ interface AreaRoomDatabaseInterface {
         fun getAreaFromRoomLiveData (id: Int): LiveData<AreaRoom?>
     @Query ("SELECT * FROM areaRoom WHERE `id` = (:id)")
         fun getAreaFromRoomNoLiveData (id: Int): AreaRoom?
+    @Query ("SELECT * FROM areaRoom WHERE `name` LIKE (:str) LIMIT 5")
+    fun getAreasOnNameFromRoomNoLiveData (str: String): List<AreaRoom>?
     @Update
         fun updateAreaRoom (areaRoom: AreaRoom)
     @Insert(onConflict = OnConflictStrategy.IGNORE)

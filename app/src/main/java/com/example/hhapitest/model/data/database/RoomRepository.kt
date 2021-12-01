@@ -57,6 +57,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         }
     }
 
+    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseDAO.getAreasOnNameFromRoomNoLiveData(str)
 
 
     private val tasks = mutableSetOf<Task<*>>()

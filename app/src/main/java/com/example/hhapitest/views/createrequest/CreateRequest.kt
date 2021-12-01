@@ -15,6 +15,7 @@ import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.R
 import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
+import com.example.hhapitest.views.CustomAutoCompleteAdapter
 import com.example.hhapitest.views.SimpleDialogFragment
 import com.example.hhapitest.views.renderSimpleResult
 
@@ -66,7 +67,12 @@ class CreateRequest(): BaseFragment() {
                 simpleDialog.show(requireActivity().supportFragmentManager, SimpleDialogFragment.TAG)
             }
         }
+
+        var adapter = CustomAutoCompleteAdapter(requireContext(), viewModel)
+        binding.addCityEditText.setAdapter(adapter)
     }
+
+
     private fun setupSimpleDialogFragmentListener() {
         requireActivity().supportFragmentManager.setFragmentResultListener(SimpleDialogFragment.KEY, viewLifecycleOwner, FragmentResultListener { _, result ->
             when (result.getInt(SimpleDialogFragment.TAG)) {
