@@ -46,7 +46,7 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val filter = FilterResults().apply {
-                    if (constraint != null && constraint.length > 0){
+                    if (constraint != null && constraint.isNotEmpty()){
                         values = viewModel.getAreasOnNameFromRoomNoLiveData("$constraint%")
                     }
                 }
@@ -54,7 +54,6 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                Log.d("TAG", "publishResult")
                 if (results != null){
                     val tempList = results.values as List<AreaRoom>?
                     if (tempList?.size != null) {
@@ -62,11 +61,11 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
                         tempList.forEach {
                             listItem.add(it.name!!)
                         }
-                        notifyDataSetChanged()
+                        //notifyDataSetChanged()
                     }
                     else notifyDataSetInvalidated()
                 }
-                else {
+               else {
                     notifyDataSetInvalidated()
                 }
             }

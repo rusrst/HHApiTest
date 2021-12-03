@@ -70,6 +70,9 @@ class CreateRequest(): BaseFragment() {
 
         var adapter = CustomAutoCompleteAdapter(requireContext(), viewModel)
         binding.addCityEditText.setAdapter(adapter)
+        binding.addCityEditText.setOnItemClickListener { _, _, _, _ ->
+            binding.addCityEditText.text = binding.addCityEditText.text
+        }
     }
 
 
