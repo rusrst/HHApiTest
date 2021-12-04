@@ -5,4 +5,5 @@
     <string name="no_areas_title">"Отсутствует список территорий"</string>
     <string name="no_areas_text">"Загрузить список территорий?"</string>
     <string name="city">Город</string>
+    <string name="add">+</string>
 </resources>

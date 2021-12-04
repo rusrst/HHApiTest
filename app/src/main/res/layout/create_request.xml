@@ -34,21 +34,22 @@
             android:id="@+id/addCityEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="48dp"
-            android:completionThreshold="1"/>
+            android:completionThreshold="2"
+            android:minHeight="48dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addCityButton"
         android:layout_width="93dp"
         android:layout_height="48dp"
         android:layout_marginEnd="32dp"
-        android:text="+"
+        android:text="@string/add"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textInputLayout" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollViewCreateRequest"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/createRequestChipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -56,16 +57,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
-
-        <LinearLayout
-            android:id="@+id/LinearLayoutAddCity"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>
+    </com.google.android.material.chip.ChipGroup>
 
     <include
         layout="@layout/part_result"
         android:visibility="gone" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

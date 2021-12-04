@@ -15,8 +15,12 @@ import com.example.hhapitest.model.data.AreaRoom
 import com.example.hhapitest.views.createrequest.CreateRequestViewModel
 
 class CustomAutoCompleteAdapter(private val context: Context, val viewModel: CreateRequestViewModel) : BaseAdapter(), Filterable{
-    private var listItem = mutableListOf<String>()
-    private val maxResult = 10
+    private var listItem = listOf<AreaRoom>()
+
+    fun getListItemById (position: Int): AreaRoom{
+        return listItem[position]
+    }
+
     override fun getCount(): Int {
         return listItem.size
     }
@@ -34,11 +38,11 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
             val layoutInflater = LayoutInflater.from(context)
             val newConvertView = layoutInflater.inflate(R.layout.auto_complete_text_view, parent, false)
             return newConvertView.apply {
-                findViewById<TextView>(R.id.textViewAutoCompleteTextView).text = listItem[position]
+                findViewById<TextView>(R.id.textViewAutoCompleteTextView).text = listItem[position].name
             }
         }
            return convertView.apply {
-               findViewById<TextView>(R.id.textViewAutoCompleteTextView)?.text = listItem[position]
+               findViewById<TextView>(R.id.textViewAutoCompleteTextView)?.text = listItem[position].name
            }
     }
 
@@ -55,12 +59,9 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 if (results != null){
-                    val tempList = results.values as List<AreaRoom>?
+                    val tempList = results.values as List<*>?
                     if (tempList?.size != null) {
-                        listItem.clear()
-                        tempList.forEach {
-                            listItem.add(it.name!!)
-                        }
+                        listItem = tempList as List<AreaRoom>
                         //notifyDataSetChanged()
                     }
                     else notifyDataSetInvalidated()

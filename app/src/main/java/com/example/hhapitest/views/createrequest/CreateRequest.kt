@@ -2,6 +2,7 @@ package com.example.hhapitest.views.createrequest
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +19,11 @@ import com.example.hhapitest.databinding.PartResultBinding
 import com.example.hhapitest.views.CustomAutoCompleteAdapter
 import com.example.hhapitest.views.SimpleDialogFragment
 import com.example.hhapitest.views.renderSimpleResult
+import com.google.android.material.chip.Chip
 
 
 class CreateRequest(): BaseFragment() {
+    var currentString: String? = null
     override val viewModel by screenViewModel<CreateRequestViewModel>()
     class Screen : BaseScreen
     var string = ""
@@ -43,17 +46,6 @@ class CreateRequest(): BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupSimpleDialogFragmentListener()
-        binding.addCityButton.setOnClickListener {
-            if (binding.addCityEditText.editableText.toString() != ""){
-                val myTextView = layoutInflater.inflate(R.layout.round_textview, null) as TextView
-                myTextView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                myTextView.text = binding.addCityEditText.editableText.toString()
-                binding.LinearLayoutAddCity.addView(myTextView)
-                myTextView.setOnClickListener {
-                    binding.LinearLayoutAddCity.removeView(it)
-                }
-            }
-        }
         viewModel.checkDatabaseOfAreas()
         renderSimpleResult(root = binding.root,
             result = SuccessResult(true),
@@ -70,8 +62,13 @@ class CreateRequest(): BaseFragment() {
 
         var adapter = CustomAutoCompleteAdapter(requireContext(), viewModel)
         binding.addCityEditText.setAdapter(adapter)
-        binding.addCityEditText.setOnItemClickListener { _, _, _, _ ->
-            binding.addCityEditText.text = binding.addCityEditText.text
+        binding.addCityEditText.setOnItemClickListener { _, _, _, id ->
+            binding.addCityEditText.text = SpannableStringBuilder(adapter.getListItemById(id.toInt()).name)
+            currentString = adapter.getListItemById(id.toInt()).name
+            val inflater = LayoutInflater.from(requireContext())
+            val newChip = inflater.inflate(R.layout.chip_create_request, binding.createRequestChipGroup, false) as Chip
+            newChip.text = currentString
+            binding.createRequestChipGroup.addView(newChip)
         }
     }
 
@@ -80,7 +77,6 @@ class CreateRequest(): BaseFragment() {
         requireActivity().supportFragmentManager.setFragmentResultListener(SimpleDialogFragment.KEY, viewLifecycleOwner, FragmentResultListener { _, result ->
             when (result.getInt(SimpleDialogFragment.TAG)) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    Log.d("TAG","YES")
                     val resultBinding = PartResultBinding.bind(binding.root)
                     viewModel.getListAreas()
                     viewModel.listAreas.observe(viewLifecycleOwner){ itResult ->
@@ -89,7 +85,6 @@ class CreateRequest(): BaseFragment() {
                             onSuccess = {
                                 viewModel.addAreaRoomList(it)
                                 resultBinding.tryAgainButton.setOnClickListener(null)
-                                Log.d("TAG","DOWNLOAD")
                             })
                     }
                     resultBinding.tryAgainButton.setOnClickListener {
@@ -97,7 +92,6 @@ class CreateRequest(): BaseFragment() {
                     }
 
                 }
-                DialogInterface.BUTTON_NEGATIVE -> Log.d("TAG","NO")
             }
         })
     }
