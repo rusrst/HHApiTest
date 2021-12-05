@@ -85,4 +85,6 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
     }
     data class DataSimpleDialog(val title: String?,
     val text: String?)
+
+    fun getAreasOnNameFromRoomNoLiveData(str: String) = roomRepository.getAreasOnNameFromRoomNoLiveData(str)
 }

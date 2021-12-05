@@ -14,4 +14,4 @@ data class Area(@SerializedName("id") var id: String? = null,
 data class AreaRoom(
     @PrimaryKey var id: Int,
     var parentId: String?,
-    var name: String?, )
+    var name: String?)
