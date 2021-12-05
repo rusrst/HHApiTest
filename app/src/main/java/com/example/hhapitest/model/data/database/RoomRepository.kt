@@ -1,20 +1,12 @@
 package com.example.hhapitest.model.data.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
-import com.example.foundation.model.ErrorResult
-import com.example.foundation.model.FinalResult
-import com.example.foundation.model.PendingResult
-import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.TaskListener
 import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
 import com.example.foundation.model.tasks.factories.TaskFactory
-import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.model.data.AreaRoom
-import com.example.hhapitest.model.data.database.AreaRoomDatabase
-import java.lang.Exception
 
 private const val DATABASE_NAME = "AreaDatabase"
 class RoomRepository (context: Context, private val taskFactory: TaskFactory, private val dispatcher: com.example.foundation.model.tasks.dispatchers.Dispatcher) {

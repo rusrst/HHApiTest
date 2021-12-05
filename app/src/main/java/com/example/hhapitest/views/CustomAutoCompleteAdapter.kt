@@ -1,7 +1,7 @@
 package com.example.hhapitest.views
 
 import android.content.Context
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import com.example.foundation.views.BaseViewModel
 import com.example.hhapitest.R
 import com.example.hhapitest.model.data.AreaRoom
 import com.example.hhapitest.views.createrequest.CreateRequestViewModel
@@ -38,11 +37,17 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
             val layoutInflater = LayoutInflater.from(context)
             val newConvertView = layoutInflater.inflate(R.layout.auto_complete_text_view, parent, false)
             return newConvertView.apply {
-                findViewById<TextView>(R.id.textViewAutoCompleteTextView).text = listItem[position].name
+                findViewById<TextView>(R.id.textViewAutoCompleteTextView).apply {
+                    text = listItem[position].name
+                    gravity = Gravity.CENTER
+                }
             }
         }
            return convertView.apply {
-               findViewById<TextView>(R.id.textViewAutoCompleteTextView)?.text = listItem[position].name
+               findViewById<TextView>(R.id.textViewAutoCompleteTextView)?.apply {
+                   text = listItem[position].name
+                   gravity = Gravity.CENTER
+               }
            }
     }
 
@@ -62,11 +67,15 @@ class CustomAutoCompleteAdapter(private val context: Context, val viewModel: Cre
                     val tempList = results.values as List<*>?
                     if (tempList?.size != null) {
                         listItem = tempList as List<AreaRoom>
-                        //notifyDataSetChanged()
+                        notifyDataSetChanged()
                     }
-                    else notifyDataSetInvalidated()
+                    else {
+                        notifyDataSetInvalidated()
+                        listItem = listOf()
+                    }
                 }
                else {
+                    listItem = listOf()
                     notifyDataSetInvalidated()
                 }
             }

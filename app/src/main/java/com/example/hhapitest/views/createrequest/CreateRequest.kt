@@ -3,11 +3,9 @@ package com.example.hhapitest.views.createrequest
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.FragmentResultListener
 import com.example.foundation.model.SuccessResult
 import com.example.foundation.views.BaseFragment
@@ -16,24 +14,23 @@ import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.R
 import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
+import com.example.hhapitest.model.data.AreaRoom
 import com.example.hhapitest.views.CustomAutoCompleteAdapter
 import com.example.hhapitest.views.SimpleDialogFragment
 import com.example.hhapitest.views.renderSimpleResult
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import java.lang.IllegalArgumentException
 
 
 class CreateRequest(): BaseFragment() {
     var currentString: String? = null
+    private val buildingRequest = BuildingRequest()
     override val viewModel by screenViewModel<CreateRequestViewModel>()
     class Screen : BaseScreen
     var string = ""
     private lateinit var binding: CreateRequestBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
-
-    //val hhApiDataInternet by lazy<HhApiDataInternet> {  HhApiDataInternet() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,15 +57,20 @@ class CreateRequest(): BaseFragment() {
             }
         }
 
-        var adapter = CustomAutoCompleteAdapter(requireContext(), viewModel)
+        val adapter = CustomAutoCompleteAdapter(requireContext(), viewModel)
         binding.addCityEditText.setAdapter(adapter)
         binding.addCityEditText.setOnItemClickListener { _, _, _, id ->
-            binding.addCityEditText.text = SpannableStringBuilder(adapter.getListItemById(id.toInt()).name)
-            currentString = adapter.getListItemById(id.toInt()).name
+            binding.addCityEditText.text = SpannableStringBuilder("")
+            buildingRequest.areas.add(adapter.getListItemById(id.toInt()))
             val inflater = LayoutInflater.from(requireContext())
             val newChip = inflater.inflate(R.layout.chip_create_request, binding.createRequestChipGroup, false) as Chip
-            newChip.text = currentString
+            newChip.text = adapter.getListItemById(id.toInt()).name
             binding.createRequestChipGroup.addView(newChip)
+            newChip.setOnCloseIconClickListener {
+                val parent = it.parent as ChipGroup
+                parent.removeView(it)
+                buildingRequest.deleteAreasByString((it as Chip).text.toString())
+            }
         }
     }
 
@@ -95,6 +97,19 @@ class CreateRequest(): BaseFragment() {
             }
         })
     }
-
-
+    data class BuildingRequest (val areas: MutableList<AreaRoom> = mutableListOf()){
+        fun deleteAreasByString (name: String){
+            val id = getIdAreasByString(name)
+            if (id != null) areas.removeAt(id)
+            else throw IllegalArgumentException("NOT INDEX BUILDINGREQUEST")
+        }
+        private fun getIdAreasByString (name:String): Int?{
+            if (areas.size != 0){
+                for (i in 0 until areas.size){
+                    if (areas[i].name == name) return i
+                }
+            }
+            return null
+        }
+    }
 }
