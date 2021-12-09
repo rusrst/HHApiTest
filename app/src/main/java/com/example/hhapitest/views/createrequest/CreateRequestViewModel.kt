@@ -9,6 +9,7 @@ import com.example.foundation.model.Result
 import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
@@ -17,6 +18,8 @@ import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.R
 import com.example.hhapitest.model.data.*
 import com.example.hhapitest.model.data.database.RoomRepository
+import com.example.hhapitest.model.data.dataclassesforjson.Area
+import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
 import com.example.hhapitest.model.json.Json
 import com.example.hhapitest.model.repository.HhApiDataInternetRepository
 
@@ -87,4 +90,5 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
     val text: String?)
 
     fun getAreasOnNameFromRoomNoLiveData(str: String) = roomRepository.getAreasOnNameFromRoomNoLiveData(str)
+    fun getEmployersRequestNoLiveData(str: String) = repository.getRequestFromUrlEmployersRequest(str)
 }

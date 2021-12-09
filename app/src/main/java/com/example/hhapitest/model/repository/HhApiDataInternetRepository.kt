@@ -5,7 +5,7 @@ import com.example.foundation.model.*
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.views.MutableLiveResult
-import com.example.hhapitest.model.data.Area
+import com.example.hhapitest.model.data.dataclassesforjson.Area
 import com.example.hhapitest.model.json.GetListAreas
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -48,6 +48,20 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
         return@async taskFactory.async {
             return@async jsonParser(data)
         }.await()
+    }
+    fun getRequestFromUrlEmployersRequest(
+        request: String
+    ): Task<String>{
+        return taskFactory.async {
+            val data: Call<String> = hhAPI.getData("https://api.hh.ru/employers?text=$request")
+            try {
+                val response = data.execute()
+                return@async response.body().toString()
+            }
+            catch (E: Exception){
+                return@async ""
+            }
+        }
     }
 
 

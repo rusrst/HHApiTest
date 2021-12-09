@@ -2,8 +2,7 @@ package com.example.hhapitest.model.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.hhapitest.model.data.AreaRoom
-import java.util.*
+import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
 
 @Dao
 interface AreaRoomDatabaseInterface {

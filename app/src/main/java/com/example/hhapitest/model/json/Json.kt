@@ -1,6 +1,8 @@
 package com.example.hhapitest.model.json
 
-import com.example.hhapitest.model.data.Area
+import com.example.hhapitest.model.data.dataclassesforjson.Area
+import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
+import com.example.hhapitest.model.data.dataclassesforjson.EmployersRequest
 import com.google.gson.Gson
 typealias GetListAreas = (String) -> List<Area>
 
@@ -32,6 +34,12 @@ companion object {
             }
         }
         return newList
+    }
+
+    fun getListEmployersForRequestList(body: String): List<EmployerRequest>?{
+        val gson = Gson()
+        val data = gson.fromJson(body, EmployersRequest::class.java)
+        return data.items
     }
 }
 

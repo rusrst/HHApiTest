@@ -2,7 +2,7 @@ package com.example.hhapitest.model.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.hhapitest.model.data.AreaRoom
+import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
 
 @Database(entities = [AreaRoom::class], version = 1, exportSchema = false)
 abstract class AreaRoomDatabase: RoomDatabase() {

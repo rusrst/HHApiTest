@@ -1,9 +1,9 @@
-package com.example.hhapitest.model.data
+package com.example.hhapitest.model.data.dataclassesforjson
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class ListRequest ( var items: List<ShortItem>?,
+data class ListRequest (var items: List<ShortItem>?,
                         var found: Int?,
                         var pages: Int?,
                         var per_page: Int?,
@@ -57,7 +57,7 @@ data class AddressRequest (val city: String?,
 
 data class Employer(val id: Int, val name: String, val url: String, val alternate_url: String, val logo_urls: LogoUrls, val vacancies_url: String, val trusted: Boolean): Serializable
 
-data class LogoUrls(@SerializedName("240")val size_240: String, @SerializedName("90") val size_90: String, val original: String): Serializable
+data class LogoUrls(@SerializedName("240")val size_240: String?, @SerializedName("90") val size_90: String?, val original: String?): Serializable
 
 data class Snippet(val requirement: String, val responsibility: String): Serializable
 

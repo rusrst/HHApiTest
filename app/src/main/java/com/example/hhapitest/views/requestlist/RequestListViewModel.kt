@@ -14,9 +14,8 @@ import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
-import com.example.hhapitest.model.data.ListRequest
-import com.example.hhapitest.model.data.ShortItem
-import com.example.hhapitest.model.repository.DataListener
+import com.example.hhapitest.model.data.dataclassesforjson.ListRequest
+import com.example.hhapitest.model.data.dataclassesforjson.ShortItem
 import com.google.gson.Gson
 
 typealias Listener = (String)->Unit
