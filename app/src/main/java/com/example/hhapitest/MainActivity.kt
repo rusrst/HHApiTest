@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
             idContainer = R.id.fragment_container,
             defaultTitle = this.getString(R.string.app_name),
             animations = null,
-            initialScreeCreator = {CreateRequest.Screen()}
+            initialScreeCreator = {RequestList.Screen()}
         )
         navigator.onCreate(savedInstanceState)
     }

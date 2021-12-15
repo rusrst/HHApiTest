@@ -14,6 +14,7 @@ import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
+import com.example.hhapitest.model.data.database.RoomRepository
 import com.example.hhapitest.model.data.dataclassesforjson.ListRequest
 import com.example.hhapitest.model.data.dataclassesforjson.ShortItem
 import com.google.gson.Gson
@@ -28,7 +29,8 @@ class RequestListViewModel(
     private val repository: HhApiDataInternetRepository,
     private val taskFactory: TaskFactory,
     savedStateHandle: SavedStateHandle,
-    dispatcher: Dispatcher
+    dispatcher: Dispatcher,
+    private val roomRepository: RoomRepository
 ) : BaseViewModel(dispatcher) {
     //listener is needed to update the value of a variable
     //we don't subscribe to the original return value in the fragment
@@ -67,6 +69,5 @@ class RequestListViewModel(
                 .into(_data)
 
         }
-
 }
 

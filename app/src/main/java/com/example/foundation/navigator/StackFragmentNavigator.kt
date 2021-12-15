@@ -49,7 +49,7 @@ class StackFragmentNavigator(private val activity: AppCompatActivity,
     private fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true, result: Any? = null){
         val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
         // set screen object as fragment's argument
-        var bundle = Bundle().apply{putSerializable(ARG_SCREEN, screen)}
+        val bundle = Bundle().apply{putSerializable(ARG_SCREEN, screen)}
         if (result != null){
             bundle.putSerializable(ARG_STARTUP, result as Serializable) // WARRNING, THIS CODE MUST BE SEIALIZABLE
         }

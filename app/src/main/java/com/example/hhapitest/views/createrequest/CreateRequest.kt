@@ -38,7 +38,7 @@ class CreateRequest(): BaseFragment() {
 
 
     var string = ""//??????
-    
+
 
     private lateinit var binding: CreateRequestBinding
 

@@ -14,7 +14,9 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         context.applicationContext,
         AreaRoomDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    )
+        .createFromAsset("myDB.db")
+        .build()
 
     private val databaseDAO = database.areaDAO()
     fun addAreaRoom (areaRoom: AreaRoom){
@@ -50,6 +52,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
     }
 
     fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseDAO.getAreasOnNameFromRoomNoLiveData(str)
+
 
 
     private val tasks = mutableSetOf<Task<*>>()
