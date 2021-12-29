@@ -8,7 +8,7 @@ import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
 import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
 
-private const val DATABASE_NAME = "AreaDatabase"
+private const val DATABASE_NAME = "AreaDatabase.db"
 class RoomRepository (context: Context, private val taskFactory: TaskFactory, private val dispatcher: com.example.foundation.model.tasks.dispatchers.Dispatcher) {
     private val database: AreaRoomDatabase = Room.databaseBuilder(
         context.applicationContext,
@@ -18,11 +18,12 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         .createFromAsset("myDB.db")
         .build()
 
-    private val databaseDAO = database.areaDAO()
+    private val databaseAreaDAO = database.areaDAO()
+    private val requestAreaDAO = database.requestDAO()
     fun addAreaRoom (areaRoom: AreaRoom){
          taskFactory.async {
              try {
-                 databaseDAO.addAreaRoom(areaRoom)
+                 databaseAreaDAO.addAreaRoom(areaRoom)
              }
             catch (e: Exception) {
             }
@@ -33,7 +34,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         taskFactory.async {
             try {
                 listAreasRoom.forEach { areaRoom->
-                    databaseDAO.addAreaRoom(areaRoom)
+                    databaseAreaDAO.addAreaRoom(areaRoom)
                 }
             }
             catch (e: Exception) {
@@ -43,7 +44,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
     fun checkDatabaseOfAreas (): Task<AreaRoom?>{
        return taskFactory.async {
             try {
-                return@async databaseDAO.getAreaFromRoomNoLiveData(113)
+                return@async databaseAreaDAO.getAreaFromRoomNoLiveData(113)
             }
             catch (e: Exception){
                 throw Exception ("ERROR ACCESS  DATABASE")
@@ -51,8 +52,9 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         }
     }
 
-    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseDAO.getAreasOnNameFromRoomNoLiveData(str)
+    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoomNoLiveData(str)
 
+    fun getListRequests() = requestAreaDAO.getRequestsRoomLiveData()
 
 
     private val tasks = mutableSetOf<Task<*>>()

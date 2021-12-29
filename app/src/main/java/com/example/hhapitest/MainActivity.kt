@@ -11,6 +11,7 @@ import com.example.foundation.views.FragmentsHolder
 import com.example.hhapitest.databinding.ActivityMainBinding
 import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.views.createrequest.CreateRequest
+import com.example.hhapitest.views.listofroomrequest.ListOfRoomRequest
 import com.example.hhapitest.views.requestlist.RequestList
 
 class MainActivity : AppCompatActivity(), FragmentsHolder {
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
             idContainer = R.id.fragment_container,
             defaultTitle = this.getString(R.string.app_name),
             animations = null,
-            initialScreeCreator = {RequestList.Screen()}
+            initialScreeCreator = {ListOfRoomRequest.Screen()}
         )
         navigator.onCreate(savedInstanceState)
     }

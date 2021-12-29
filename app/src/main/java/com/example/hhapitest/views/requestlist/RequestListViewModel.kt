@@ -44,6 +44,7 @@ class RequestListViewModel(
 
      */
 
+    var urlItem: String? = null
     fun tryAgain(){
         load()
     }
@@ -65,7 +66,7 @@ class RequestListViewModel(
         }
 
         private fun load(){
-            repository.getRequestFromUrl("https://api.hh.ru/vacancies?employer_id=1025275&area=1530&period=1&per_page=100", null)
+            repository.getRequestFromUrl(urlItem ?: "", null)
                 .into(_data)
 
         }

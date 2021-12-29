@@ -7,7 +7,9 @@ import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
 
 @Database(entities = [AreaRoom::class,
     RequestRoom::class],
-    version = 1, exportSchema = true)
+    version = 1)
 abstract class AreaRoomDatabase: RoomDatabase() {
     abstract fun areaDAO(): AreaRoomDatabaseInterface
+    abstract fun requestDAO(): RequestRoomDatabaseInterface
+
 }

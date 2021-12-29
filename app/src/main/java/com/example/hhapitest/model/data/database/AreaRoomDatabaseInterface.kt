@@ -1,6 +1,7 @@
 package com.example.hhapitest.model.data.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
 import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
@@ -22,7 +23,4 @@ interface AreaRoomDatabaseInterface {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
         fun addAreaRoom(areaRoom: AreaRoom)
 
-
-    @Query ("SELECT * FROM list_request")
-    fun getRequestsRoomLiveData (): LiveData<List<RequestRoom>>
 }

@@ -1,4 +1,4 @@
-package com.example.hhapitest
+package com.example.hhapitest.views.requestlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hhapitest.databinding.RequestItemBinding
 import com.example.hhapitest.model.data.dataclassesforjson.ShortItem
 import com.example.hhapitest.views.detailsfragment.DetailsFragment
-import com.example.hhapitest.views.requestlist.RequestListViewModel
 
 interface UserActionListener {
 
