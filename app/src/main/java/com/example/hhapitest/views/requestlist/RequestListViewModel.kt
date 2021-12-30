@@ -1,6 +1,7 @@
 package com.example.hhapitest.views.requestlist
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
@@ -55,8 +56,12 @@ class RequestListViewModel(
         private var _liveListShortItem: LiveResult<List<ShortItem>?> = Transformations.map(_data) { result ->
             if (result is SuccessResult){
                 val gson = Gson()
+                try{
                 val data = gson.fromJson(result.data, ListRequest::class.java)
-                return@map SuccessResult(data.items)
+                return@map SuccessResult(data.items)}
+                catch (e: Exception){
+                    return@map ErrorResult(e)
+                }
             }
             return@map result as Result<List<ShortItem>?>
         }
@@ -66,6 +71,7 @@ class RequestListViewModel(
         }
 
         private fun load(){
+            if (urlItem == null) navigator.goBack()
             repository.getRequestFromUrl(urlItem ?: "", null)
                 .into(_data)
 

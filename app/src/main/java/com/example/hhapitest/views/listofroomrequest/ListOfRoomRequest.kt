@@ -37,7 +37,7 @@ class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
         binding.listOfRoomRequest.layoutManager = layoutManager
         binding.listOfRoomRequest.adapter = adapter
         val resultBinding = PartResultBinding.bind(binding.root)
-        
+
 
         viewModel.getListOfRequests().observe(viewLifecycleOwner, {list ->
 
