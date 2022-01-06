@@ -36,10 +36,6 @@ class CreateRequest(): BaseFragment() {
     override val viewModel by screenViewModel<CreateRequestViewModel>()
     class Screen : BaseScreen
 
-
-    var string = ""//??????
-
-
     private lateinit var binding: CreateRequestBinding
 
     override fun onCreateView(
@@ -98,6 +94,7 @@ class CreateRequest(): BaseFragment() {
                             onSuccess = {
                                 viewModel.addAreaRoomList(it)
                                 resultBinding.tryAgainButton.setOnClickListener(null)
+                                binding.textViewEnterNameCity.visibility = View.GONE
                             })
                     }
                     resultBinding.tryAgainButton.setOnClickListener {

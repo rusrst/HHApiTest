@@ -1,5 +1,6 @@
 package com.example.hhapitest
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.foundation.ActivityScopeViewModel

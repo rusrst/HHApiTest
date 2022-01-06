@@ -35,6 +35,7 @@ class RequestListViewModel(
 ) : BaseViewModel(dispatcher) {
     //listener is needed to update the value of a variable
     //we don't subscribe to the original return value in the fragment
+
     /*private val dataListener: DataListener = {result ->
         when(result){
             is ErrorResult -> _data.postValue(result)

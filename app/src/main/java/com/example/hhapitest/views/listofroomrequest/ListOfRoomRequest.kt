@@ -9,6 +9,7 @@ import com.example.foundation.model.SuccessResult
 import com.example.foundation.views.*
 import com.example.hhapitest.databinding.ListofroomrequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
+import com.example.hhapitest.views.createrequest.CreateRequest
 import com.example.hhapitest.views.renderSimpleResult
 
 class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
@@ -37,8 +38,12 @@ class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
         binding.listOfRoomRequest.layoutManager = layoutManager
         binding.listOfRoomRequest.adapter = adapter
         val resultBinding = PartResultBinding.bind(binding.root)
+        resultBinding.tryAgainButton.visibility = View.GONE
+        resultBinding.textViewTryAgain.visibility = View.GONE
 
-
+        binding.listOfRoomRequestActionButton.setOnClickListener {
+            viewModel.launch(CreateRequest.Screen(), null)
+        }
         viewModel.getListOfRequests().observe(viewLifecycleOwner, {list ->
 
             renderSimpleResult(root = binding.root,

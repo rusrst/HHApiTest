@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/drawable/add_drawable.xml" value="0.37552083333333336" />
+        <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.37552083333333336" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2703125" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/drawable/rounded_cornel.xml" value="0.37552083333333336" />
@@ -12,6 +14,7 @@
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/chip_create_request.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/create_request.xml" value="0.359375" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/details_item.xml" value="0.5" />
+        <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/listOfRoomRequestItem.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/listofroomrequest.xml" value="0.35280797101449274" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/listofroomrequestitem.xml" value="0.25" />
         <entry key="..\:/Users/UNIX/AndroidStudioProjects/HHApiTest/app/src/main/res/layout/part_result.xml" value="0.25416666666666665" />
