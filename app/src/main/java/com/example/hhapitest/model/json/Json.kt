@@ -1,7 +1,6 @@
 package com.example.hhapitest.model.json
 
 import android.util.Log
-import com.example.hhapitest.model.data.dataclassesforjson.Area
 import com.example.hhapitest.model.data.dataclassesforjson.AreaKS
 import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
 import com.example.hhapitest.model.data.dataclassesforjson.EmployersRequest
@@ -9,11 +8,11 @@ import com.google.gson.Gson
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-typealias GetListAreas = (String) -> List<Area>
+typealias GetListAreas = (String) -> List<AreaKS>
 
 class Json {
 companion object {
-    fun getListAreas(body: String): List<Area> {
+    fun getListAreas(body: String): List<AreaKS> {
         val data = Json.decodeFromString<List<AreaKS>>(body)
         return getListAreasWithNullAreas(
             data,
@@ -24,10 +23,10 @@ companion object {
 
     private fun getListAreasWithNullAreas(
         list: List<AreaKS>,
-        newList: MutableList<Area>
-    ): MutableList<Area> {
+        newList: MutableList<AreaKS>
+    ): MutableList<AreaKS> {
         list.forEach { area ->
-            var newArea = Area().apply {
+            var newArea = AreaKS().apply {
                 id = area.id
                 parentId = area.parentId
                 name = area.name
