@@ -9,9 +9,16 @@ import com.example.hhapitest.model.data.database.RoomRepository
 import com.example.hhapitest.model.repository.HhApiDataInternetRepository
 
 class AppHhTest: Application(), BaseApplication {
-    private val dispatcher by lazy { MainThreadDispatcher() }
-    private val simpleTaskFactory by lazy {ThreadTasksFactory()}
-    private val roomRepository by lazy {RoomRepository(this, simpleTaskFactory, dispatcher)}
-    private val uiActions by lazy { AndroidUIActions(this) }
+    private lateinit var dispatcher: MainThreadDispatcher
+    private lateinit var simpleTaskFactory: ThreadTasksFactory
+    private lateinit var roomRepository: RoomRepository
+    private lateinit var uiActions: AndroidUIActions
     override val singletonScopeDependencies by lazy {listOf(simpleTaskFactory, HhApiDataInternetRepository(simpleTaskFactory), dispatcher, roomRepository, uiActions)}
+    override fun onCreate() {
+        dispatcher = MainThreadDispatcher()
+        simpleTaskFactory =  ThreadTasksFactory()
+        roomRepository = RoomRepository(this, simpleTaskFactory, dispatcher)
+        uiActions = AndroidUIActions(this)
+        super.onCreate()
+    }
 }

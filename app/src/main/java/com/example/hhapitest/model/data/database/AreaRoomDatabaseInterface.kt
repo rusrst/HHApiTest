@@ -1,9 +1,10 @@
 package com.example.hhapitest.model.data.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.example.hhapitest.model.data.AreaRoom
-import java.util.*
+import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
 
 @Dao
 interface AreaRoomDatabaseInterface {
@@ -21,4 +22,5 @@ interface AreaRoomDatabaseInterface {
         fun updateAreaRoom (areaRoom: AreaRoom)
     @Insert(onConflict = OnConflictStrategy.IGNORE)
         fun addAreaRoom(areaRoom: AreaRoom)
+
 }

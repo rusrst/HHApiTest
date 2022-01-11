@@ -1,5 +1,6 @@
 package com.example.hhapitest
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.foundation.ActivityScopeViewModel
@@ -11,6 +12,7 @@ import com.example.foundation.views.FragmentsHolder
 import com.example.hhapitest.databinding.ActivityMainBinding
 import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.views.createrequest.CreateRequest
+import com.example.hhapitest.views.listofroomrequest.ListOfRoomRequest
 import com.example.hhapitest.views.requestlist.RequestList
 
 class MainActivity : AppCompatActivity(), FragmentsHolder {
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
             idContainer = R.id.fragment_container,
             defaultTitle = this.getString(R.string.app_name),
             animations = null,
-            initialScreeCreator = {CreateRequest.Screen()}
+            initialScreeCreator = {ListOfRoomRequest.Screen()}
         )
         navigator.onCreate(savedInstanceState)
     }

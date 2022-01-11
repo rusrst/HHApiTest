@@ -17,6 +17,8 @@ import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.R
 import com.example.hhapitest.model.data.*
 import com.example.hhapitest.model.data.database.RoomRepository
+import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.data.dataclassesforjson.Area
 import com.example.hhapitest.model.json.Json
 import com.example.hhapitest.model.repository.HhApiDataInternetRepository
 
@@ -87,4 +89,5 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
     val text: String?)
 
     fun getAreasOnNameFromRoomNoLiveData(str: String) = roomRepository.getAreasOnNameFromRoomNoLiveData(str)
+    fun getEmployersRequestNoLiveData(str: String) = repository.getRequestFromUrlEmployersRequest(str)
 }

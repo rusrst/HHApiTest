@@ -1,15 +1,20 @@
 package com.example.hhapitest.model.json
 
-import com.example.hhapitest.model.data.Area
+import com.example.hhapitest.model.data.dataclassesforjson.Area
+import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
+import com.example.hhapitest.model.data.dataclassesforjson.EmployersRequest
 import com.google.gson.Gson
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+
 typealias GetListAreas = (String) -> List<Area>
 
 class Json {
 companion object {
     fun getListAreas(body: String): List<Area> {
-        val gson = Gson()
+        val data = Json.decodeFromString<List<Area>>(body)
         return getListAreasWithNullAreas(
-            gson.fromJson(body, Array<Area>::class.java).toList(),
+            data,
             mutableListOf()
         )
     }
@@ -32,6 +37,11 @@ companion object {
             }
         }
         return newList
+    }
+
+    fun getListEmployersForRequestList(body: String): List<EmployerRequest>?{
+        val data = Json.decodeFromString<EmployersRequest?>(body)
+        return data?.items
     }
 }
 

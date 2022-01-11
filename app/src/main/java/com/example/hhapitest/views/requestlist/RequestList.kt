@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hhapitest.RequestAdapter
+import com.example.foundation.ARG_STARTUP
 import com.example.hhapitest.databinding.RequestListBinding
 import com.example.foundation.views.HasScreenTitle
 import com.example.foundation.views.BaseFragment
@@ -23,6 +23,10 @@ class RequestList : BaseFragment(), HasScreenTitle {
     private lateinit var adapter: RequestAdapter
     override val viewModel by screenViewModel<RequestListViewModel>()
     private var title: String = "List"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if(savedInstanceState == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
