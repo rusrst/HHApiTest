@@ -8,7 +8,6 @@ import com.example.hhapitest.model.data.dataclassesforjson.EmployersRequest
 import com.google.gson.Gson
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.json.JSONArray
 
 typealias GetListAreas = (String) -> List<Area>
 
@@ -16,17 +15,15 @@ class Json {
 companion object {
     fun getListAreas(body: String): List<Area> {
         val data = Json.decodeFromString<List<AreaKS>>(body)
-        Log.d("TAG","${data[2]}")
-        val gson = Gson()
         return getListAreasWithNullAreas(
-            gson.fromJson(body, Array<Area>::class.java).toList(),
+            data,
             mutableListOf()
         )
     }
 
 
     private fun getListAreasWithNullAreas(
-        list: List<Area>,
+        list: List<AreaKS>,
         newList: MutableList<Area>
     ): MutableList<Area> {
         list.forEach { area ->
