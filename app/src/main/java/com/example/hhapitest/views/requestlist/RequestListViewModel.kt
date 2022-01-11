@@ -1,7 +1,6 @@
 package com.example.hhapitest.views.requestlist
 
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
@@ -16,9 +15,12 @@ import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.model.data.database.RoomRepository
+import com.example.hhapitest.model.data.dataclassesforjson.Area
 import com.example.hhapitest.model.data.dataclassesforjson.ListRequest
 import com.example.hhapitest.model.data.dataclassesforjson.ShortItem
 import com.google.gson.Gson
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 typealias Listener = (String)->Unit
 typealias LiveListShortItem = LiveData<List<ShortItem>?>
@@ -56,11 +58,11 @@ class RequestListViewModel(
         private val _data = MutableLiveResult<String>(PendingResult())
         private var _liveListShortItem: LiveResult<List<ShortItem>?> = Transformations.map(_data) { result ->
             if (result is SuccessResult){
-                val gson = Gson()
                 try{
-                val data = gson.fromJson(result.data, ListRequest::class.java)
+                val data = Json.decodeFromString<ListRequest>(result.data)
                 return@map SuccessResult(data.items)}
                 catch (e: Exception){
+                    throw e
                     return@map ErrorResult(e)
                 }
             }

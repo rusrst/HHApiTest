@@ -2,9 +2,11 @@ package com.example.hhapitest.model.data.dataclassesforjson
 
 import java.io.Serializable
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 
+@kotlinx.serialization.Serializable
 data class ShortArea(
-    @SerializedName("id") var id: Int,
-    @SerializedName("text") var name: String,
-    @SerializedName("url") var url: String): Serializable{
+    @SerialName("id") var id: Int,
+    @SerialName("name") var name: String,
+    @SerialName("url") var url: String){
 }

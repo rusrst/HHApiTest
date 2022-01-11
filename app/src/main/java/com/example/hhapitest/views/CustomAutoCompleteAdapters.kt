@@ -134,17 +134,13 @@ class CustomAutoCompleteAdapterEmployers(private val context: Context, val viewM
                         currentTask?.cancel()
                         currentTask = viewModel.getEmployersRequestNoLiveData(constraint.toString())
                         currentTask?.enqueue(MainThreadDispatcher()){ result ->
-                            if (result is SuccessResult && result.data != ""){
+                            listItem = if (result is SuccessResult && result.data != ""){
                                 try {
-                                    listItem =
-                                        Json.getListEmployersForRequestList(result.data) ?: listOf()
+                                    Json.getListEmployersForRequestList(result.data) ?: listOf()
+                                } catch (e: Exception) {
+                                    listOf()
                                 }
-                                catch (e: Exception)
-                                {
-                                    listItem = listOf()
-
-                                }
-                            } else listItem = listOf()
+                            } else listOf()
                             notifyDataSetChanged()
                         }
                     }

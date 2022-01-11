@@ -9,7 +9,6 @@ import com.example.foundation.model.Result
 import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
-import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
@@ -19,7 +18,7 @@ import com.example.hhapitest.R
 import com.example.hhapitest.model.data.*
 import com.example.hhapitest.model.data.database.RoomRepository
 import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
-import com.example.hhapitest.model.data.dataclassesforjson.AreaKS
+import com.example.hhapitest.model.data.dataclassesforjson.Area
 import com.example.hhapitest.model.json.Json
 import com.example.hhapitest.model.repository.HhApiDataInternetRepository
 
@@ -31,12 +30,12 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
                              private val roomRepository: RoomRepository
 ) : BaseViewModel(dispatcher) {
     private val tasks = mutableSetOf<Task<*>>()
-    private var currentTask: Task<List<AreaKS>>? = null
+    private var currentTask: Task<List<Area>>? = null
     private val _state = MutableLiveData(State(null))
     val state: LiveData<State> = _state
 
-    private val _listAreas = MutableLiveResult<List<AreaKS>>(PendingResult())
-    val listAreas: LiveResult<List<AreaKS>> = _listAreas
+    private val _listAreas = MutableLiveResult<List<Area>>(PendingResult())
+    val listAreas: LiveResult<List<Area>> = _listAreas
 
     private val _checkDatabaseOfAreas = MutableLiveResult<AreaRoom?>(PendingResult())
     val checkingDatabaseOfAreas: LiveResult<Boolean> = Transformations.map(_checkDatabaseOfAreas){result ->
@@ -60,7 +59,7 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
             }
         }
     }
-    fun addAreaRoomList (listArea: List<AreaKS>){
+    fun addAreaRoomList (listArea: List<Area>){
         val list = mutableListOf<AreaRoom>()
         listArea.forEach {
             val areaRoom = AreaRoom(it.id?.toInt() ?: throw Exception("ID IS STRING!!!"), parentId = it.parentId, name = it.name)
