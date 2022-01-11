@@ -6,7 +6,7 @@ import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.TaskListener
 import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
 import com.example.foundation.model.tasks.factories.TaskFactory
-import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
+import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
 
 private const val DATABASE_NAME = "AreaDatabase.db"
 class RoomRepository (context: Context, private val taskFactory: TaskFactory, private val dispatcher: com.example.foundation.model.tasks.dispatchers.Dispatcher) {

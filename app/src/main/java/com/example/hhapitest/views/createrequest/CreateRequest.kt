@@ -19,7 +19,7 @@ import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.R
 import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
-import com.example.hhapitest.model.data.dataclassesforjson.AreaRoom
+import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
 import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
 import com.example.hhapitest.views.CustomAutoCompleteAdapterAreas
 import com.example.hhapitest.views.CustomAutoCompleteAdapterEmployers
