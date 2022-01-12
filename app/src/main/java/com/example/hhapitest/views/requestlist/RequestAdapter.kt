@@ -1,5 +1,6 @@
 package com.example.hhapitest.views.requestlist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,8 @@ class RequestAdapter (private val navigator: RequestListViewModel): RecyclerView
         holder.binding.nameEmployer.text = currentItem.employer?.name
         holder.binding.responsibility.text = currentItem.snippet?.responsibility
         holder.binding.requirement.text = currentItem.snippet?.requirement
+        holder.binding.createAt.text = currentItem.created_at?.toDate() ?: ""
+        holder.binding.publishedAt.text = currentItem.published_at?.toDate() ?: ""
         holder.binding.root.setOnClickListener{
                 navigator.launch(DetailsFragment.Screen(), currentItem.alternate_url)
         }
@@ -50,5 +53,17 @@ class RequestAdapter (private val navigator: RequestListViewModel): RecyclerView
 
 
 
-
+    private fun String.toDate(): String?{
+        val str = this
+        val date = str.substringBefore("T")
+        val chars = listOf<Char>('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-')
+        if (str.length != date.length && testToDate(date, chars)) return date
+        return null
+    }
+    private fun testToDate(str: String, list: List<Char>): Boolean{
+        str.forEach { strChar->
+            if (strChar !in list) return false
+        }
+        return true
+    }
 }

@@ -11,7 +11,6 @@ import com.example.hhapitest.databinding.ListofroomrequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
 import com.example.hhapitest.views.createrequest.CreateRequest
 import com.example.hhapitest.views.renderSimpleResult
-import java.sql.Date
 
 class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
     class Screen : BaseScreen

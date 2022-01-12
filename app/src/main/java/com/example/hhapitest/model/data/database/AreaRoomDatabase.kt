@@ -7,10 +7,9 @@ import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
 import com.example.hhapitest.model.data.database.dataclassroom.ResponsesRoom
 
 @Database(entities = [AreaRoom::class,
-    RequestRoom::class],
+    RequestRoom::class, ResponsesRoom::class],
     version = 1)
 abstract class AreaRoomDatabase: RoomDatabase() {
     abstract fun areaDAO(): AreaRoomDatabaseInterface
     abstract fun requestDAO(): RequestRoomDatabaseInterface
-
 }

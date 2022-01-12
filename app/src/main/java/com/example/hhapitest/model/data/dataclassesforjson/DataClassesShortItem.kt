@@ -1,5 +1,7 @@
 package com.example.hhapitest.model.data.dataclassesforjson
 
+import androidx.room.Embedded
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 
@@ -32,7 +34,7 @@ data class ShortItem (val id: Int?,
                       val insider_interview: InsiderInterview?,
                       val url: String?,
                       val alternate_url: String?,
-                      val relations: List<NNUL?>?,
+                      val relations: List<String?>?,// при авторизации может появиться
                       val employer: Employer?,
                       val snippet: Snippet?,
                       val contacts: String?,
@@ -43,32 +45,32 @@ data class ShortItem (val id: Int?,
                       val accept_temporary: Boolean?,
                       @SerialName("immediate_redirect_url") val immediate_redirect_url: String? = null)
 @kotlinx.serialization.Serializable
-data class Department(val id: String?, val name: String?)
+data class Department(val id: String? = null, val name: String? = null)
 @kotlinx.serialization.Serializable
-data class TypeVacancy(val id: String?, val name: String?)
+data class TypeVacancy(val id: String? = null, val name: String? = null)
 @kotlinx.serialization.Serializable
-data class AddressRequest (val city: String?,
-                           val street: String?,
-                           val building: String?,
-                           val description: String?,
-                           val lat: Double?,
-                           val lng: Double?,
-                           val raw: String?,
-                           val metro: String?,
-                           val metro_stations: List<NNUL?>,
-                           val id: Int?)
+data class AddressRequest (var city: String? = null,
+                           var street: String? = null,
+                           var building: String? = null,
+                           var description: String? = null,
+                           var lat: Double? = null,
+                           var lng: Double? = null,
+                           var raw: String? = null,
+                           var metro: String? = null,
+                           val metro_stations: List<MetroStations?>?,
+                           var id: Int? = null)
 @kotlinx.serialization.Serializable
-data class ShortSalary(val from: Int?, val to: Int?, val currency: String?, val gross: Boolean?)
+data class ShortSalary(val from: Int? = null, val to: Int? = null, val currency: String? = null, val gross: Boolean? = null)
 @kotlinx.serialization.Serializable
-data class Employer(val id: Int?, val name: String?, val url: String?, val alternate_url: String?, val logo_urls: LogoUrls?, val vacancies_url: String?, val trusted: Boolean?)
+data class Employer(val id: Int? = null, val name: String? = null, val url: String? = null, val alternate_url: String? = null, val logo_urls: LogoUrls?, val vacancies_url: String? = null, val trusted: Boolean? = null)
 @kotlinx.serialization.Serializable
-data class LogoUrls(@SerialName("240")val size_240: String?, @SerialName("90") val size_90: String?, @SerialName("original") val original: String?)
+data class LogoUrls(@SerialName("240")val size_240: String? = null, @SerialName("90") val size_90: String? = null, @SerialName("original") val original: String? = null)
 @kotlinx.serialization.Serializable
-data class Snippet(val requirement: String?, val responsibility: String?)
+data class Snippet(val requirement: String? = null, val responsibility: String? = null)
 @kotlinx.serialization.Serializable
 data class Schedule(val id: String?, val name: String?)
 @kotlinx.serialization.Serializable
-data class NNUL(val str: String?)
+data class MetroStations(val station_id: String? = null, val station_name: String? = null, val line_id: String? = null, val line_name: String? = null, val lat: Long? = null, val lng: Long? = null)
 @kotlinx.serialization.Serializable
 data class  WorkingDays(val id: String?, val name: String?)
 @kotlinx.serialization.Serializable
