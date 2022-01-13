@@ -9,6 +9,7 @@ import com.example.foundation.model.Result
 import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
@@ -27,9 +28,9 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
                              private val uiActions: UIActions,
                              private val repository: HhApiDataInternetRepository,
                              private val dispatcher: Dispatcher,
-                             private val roomRepository: RoomRepository
-) : BaseViewModel(dispatcher) {
-    private val tasks = mutableSetOf<Task<*>>()
+                             private val roomRepository: RoomRepository,
+                             private val taskFactory: TaskFactory
+) : BaseViewModel(dispatcher, taskFactory) {
     private var currentTask: Task<List<Area>>? = null
     private val _state = MutableLiveData(State(null))
     val state: LiveData<State> = _state
@@ -48,18 +49,20 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
         func?.invoke()
     }
     fun getListAreas() = load("https://api.hh.ru/areas")
+
+
     private fun load(url: String){
-        currentTask = repository.getRequestFromUrlWithJsonParser(url, null){
-            Json.getListAreas(it)
-        }.also { task->
-            _listAreas.value = PendingResult()
-            task.enqueue(dispatcher){
-                currentTask = null
-                _listAreas.value = it
+        _listAreas.value = PendingResult()
+        taskFactory.async {
+            val data = repository.getRequestFromUrlWithJsonParser(url) {
+                Json.getListAreas(it)
             }
+            addAreaRoomList(data)
+        }.safeEnqueue{
+            _listAreas.value = SuccessResult(mutableListOf())
         }
     }
-    fun addAreaRoomList (listArea: List<Area>){
+    private fun addAreaRoomList (listArea: List<Area>){
         val list = mutableListOf<AreaRoom>()
         listArea.forEach {
             val areaRoom = AreaRoom(it.id?.toInt() ?: throw Exception("ID IS STRING!!!"), parentId = it.parentId, name = it.name)
@@ -73,7 +76,7 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
         }
     }
     fun checkDatabaseOfAreasEnd(result: Result<Boolean>){
-        if (result is SuccessResult && result.data) return
+        if (result is SuccessResult && result.data) _state.value = State(null)
         else if((result is SuccessResult && !result.data)){
             _state.value = State(DataSimpleDialog(uiActions.getString(R.string.no_areas_title), uiActions.getString(R.string.no_areas_text)))
         }

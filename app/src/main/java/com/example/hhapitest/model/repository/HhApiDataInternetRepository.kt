@@ -37,18 +37,15 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
 
     fun getRequestFromUrlWithJsonParser(
         url: String,
-        dataListenerList: DataListenerList?,
         jsonParser: GetListAreas
-    ): Task<List<Area>> = taskFactory.async {
-        val data = taskFactory.async {
-            val data: Call<String> = hhAPI.getData(url)
-            val response = data.execute()
-            return@async response.body().toString()
-        }.await()
-        return@async taskFactory.async {
-            return@async jsonParser(data)
-        }.await()
+    ):List<Area>
+    {
+        val call: Call<String> = hhAPI.getData(url)
+        val response = call.execute()
+        val data = response.body().toString()
+        return jsonParser(data)
     }
+
     fun getRequestFromUrlEmployersRequest(
         request: String
     ): Task<String>{
@@ -63,23 +60,4 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
             }
         }
     }
-
-
-/*
-        val data: Call<String> = hhAPI.getData(url)
-        data.enqueue(object  : Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                _stringLiveData.value = ErrorResult(Exception())
-                dataListener?.invoke(ErrorResult<String>(exception = Exception()))
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                _stringLiveData.value = SuccessResult(response.body().toString())
-                dataListener?.invoke(SuccessResult(response.body().toString()))
-            }
-        })
-        _stringLiveData.value = PendingResult()
-        return _stringLiveData
-
- */
 }

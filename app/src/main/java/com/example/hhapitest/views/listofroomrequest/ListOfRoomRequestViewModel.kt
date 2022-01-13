@@ -22,8 +22,8 @@ class ListOfRoomRequestViewModel(
     private val taskFactory: TaskFactory,
     savedStateHandle: SavedStateHandle,
     dispatcher: Dispatcher,
-    private val roomRepository: RoomRepository
-) : BaseViewModel(dispatcher) {
+    private val roomRepository: RoomRepository,
+) : BaseViewModel(dispatcher, taskFactory) {
     fun getListOfRequests(): LiveData<List<RequestRoom>?>{
         return roomRepository.getListRequests()
     }

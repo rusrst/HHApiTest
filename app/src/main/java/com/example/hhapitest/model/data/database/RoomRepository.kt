@@ -20,31 +20,21 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
 
     private val databaseAreaDAO = database.areaDAO()
     private val requestAreaDAO = database.requestDAO()
-    fun addAreaRoom (areaRoom: AreaRoom){
-         taskFactory.async {
-             try {
-                 databaseAreaDAO.addAreaRoom(areaRoom)
-             }
-            catch (e: Exception) {
-            }
-        }.safeEnqueue()
-    }
 
     fun addAreasRoom (listAreasRoom: List<AreaRoom>){
-        taskFactory.async {
-            try {
-                listAreasRoom.forEach { areaRoom->
-                    databaseAreaDAO.addAreaRoom(areaRoom)
-                }
+        try {
+            listAreasRoom.forEach { areaRoom->
+                databaseAreaDAO.addAreaRoom(areaRoom)
             }
-            catch (e: Exception) {
-            }
-        }.safeEnqueue()
         }
+        catch (e: Exception) {
+        }
+    }
+
     fun checkDatabaseOfAreas (): Task<AreaRoom?>{
        return taskFactory.async {
             try {
-                return@async databaseAreaDAO.getAreaFromRoomNoLiveData(113)
+                return@async databaseAreaDAO.getAreaFromRoom(113)
             }
             catch (e: Exception){
                 throw Exception ("ERROR ACCESS  DATABASE")
@@ -52,7 +42,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         }
     }
 
-    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoomNoLiveData(str)
+    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoom(str)
 
     fun getListRequests() = requestAreaDAO.getRequestsRoomLiveData()
 

@@ -60,7 +60,11 @@ class CreateRequest(): BaseFragment() {
         }
         viewModel.state.observe(viewLifecycleOwner){
             if (it.showDialog){
-                val simpleDialog = SimpleDialogFragment(it.dataSimpleDialog?.title, it.dataSimpleDialog?.text)
+                val simpleDialog = SimpleDialogFragment()
+                val args = Bundle()
+                args.putString("title", "${it.dataSimpleDialog?.title}")
+                args.putString("text", "${it.dataSimpleDialog?.text}")
+                simpleDialog.arguments = args
                 simpleDialog.show(requireActivity().supportFragmentManager, SimpleDialogFragment.TAG)
             }
         }
@@ -92,7 +96,6 @@ class CreateRequest(): BaseFragment() {
                         renderSimpleResult(root = binding.root,
                             result = itResult,
                             onSuccess = {
-                                viewModel.addAreaRoomList(it)
                                 resultBinding.tryAgainButton.setOnClickListener(null)
                                 binding.textViewEnterNameCity.visibility = View.GONE
                             })

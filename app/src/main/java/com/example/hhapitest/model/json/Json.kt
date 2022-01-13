@@ -3,7 +3,6 @@ package com.example.hhapitest.model.json
 import com.example.hhapitest.model.data.dataclassesforjson.Area
 import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
 import com.example.hhapitest.model.data.dataclassesforjson.EmployersRequest
-import com.google.gson.Gson
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -18,6 +17,7 @@ companion object {
             mutableListOf()
         )
     }
+
 
 
     private fun getListAreasWithNullAreas(
