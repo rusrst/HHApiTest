@@ -73,7 +73,7 @@ class CreateRequestViewModel(screen: CreateRequest.Screen,
         }
     }
     fun checkDatabaseOfAreasEnd(result: Result<Boolean>){
-        if (result is SuccessResult && result.data) return
+        if (result is SuccessResult && result.data) _state.value = State(null)
         else if((result is SuccessResult && !result.data)){
             _state.value = State(DataSimpleDialog(uiActions.getString(R.string.no_areas_title), uiActions.getString(R.string.no_areas_text)))
         }

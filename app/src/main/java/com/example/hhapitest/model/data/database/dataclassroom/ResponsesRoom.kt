@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 
 @Entity(
     primaryKeys = [
-        "id","createDB"
+        "id","publishAt"
     ],
     indices = [
         Index("createDB"),
@@ -66,13 +66,13 @@ data class AddressRequest(var city: String? = null,
 
 data class Employer(var id: Int? = null,
                     var name: String? = null, var url: String? = null,
-                    var alternate_url: String? = null, @Embedded var logo_urls: LogoUrls,
+                    var alternate_url: String? = null, @Ignore var logo_urls: LogoUrls? = null,
                     var vacancies_url: String? = null, var trusted: Boolean? = null)
 
 data class LogoUrls(var size_240: String? = null, var size_90: String? = null, var original: String? = null)
 
 data class Snippet(val requirement: String? = null, val responsibility: String? = null)
 
-fun ResponsesRoom.myEnque(obj: ResponsesRoom): Boolean{
-    return (id == obj.id && createDB == obj.createDB)
+fun ResponsesRoom.myEqual(obj: ResponsesRoom): Boolean{
+    return (id == obj.id && publishAt == obj.publishAt)
 }

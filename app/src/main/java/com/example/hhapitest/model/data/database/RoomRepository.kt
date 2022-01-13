@@ -44,7 +44,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
     fun checkDatabaseOfAreas (): Task<AreaRoom?>{
        return taskFactory.async {
             try {
-                return@async databaseAreaDAO.getAreaFromRoomNoLiveData(113)
+                return@async databaseAreaDAO.getAreaFromRoom(113)
             }
             catch (e: Exception){
                 throw Exception ("ERROR ACCESS  DATABASE")
@@ -52,7 +52,7 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         }
     }
 
-    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoomNoLiveData(str)
+    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoom(str)
 
     fun getListRequests() = requestAreaDAO.getRequestsRoomLiveData()
 

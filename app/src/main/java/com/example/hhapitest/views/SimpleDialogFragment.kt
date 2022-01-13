@@ -7,8 +7,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 
-class SimpleDialogFragment(private val title: String?, val text: String?) : DialogFragment() {
+class SimpleDialogFragment() : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val title = arguments?.getString("title") ?: ""
+        val text = arguments?.getString("text") ?: ""
         val listener = DialogInterface.OnClickListener { _, which ->
             parentFragmentManager.setFragmentResult(KEY, bundleOf(TAG to which))
         }
