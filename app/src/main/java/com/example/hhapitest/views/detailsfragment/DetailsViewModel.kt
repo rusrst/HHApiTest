@@ -8,6 +8,7 @@ import com.example.foundation.model.PendingResult
 import com.example.foundation.model.Result
 import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
@@ -22,7 +23,8 @@ class DetailsViewModel(screen: DetailsFragment.Screen,
                        private val navigator: Navigator,
                        private val uiActions: UIActions,
                        private val repository: HhApiDataInternetRepository,
-                       dispatcher: Dispatcher) : BaseViewModel(dispatcher) {
+                       private val taskFactory: TaskFactory,
+                       dispatcher: Dispatcher) : BaseViewModel(dispatcher, taskFactory) {
     var urlItem: String? = null
     private val _data:MutableLiveResult<String> = MutableLiveData(PendingResult())
     //listener is needed to update the value of a variable

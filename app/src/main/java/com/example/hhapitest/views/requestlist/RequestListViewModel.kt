@@ -34,7 +34,7 @@ class RequestListViewModel(
     savedStateHandle: SavedStateHandle,
     dispatcher: Dispatcher,
     private val roomRepository: RoomRepository
-) : BaseViewModel(dispatcher) {
+) : BaseViewModel(dispatcher, taskFactory) {
     //listener is needed to update the value of a variable
     //we don't subscribe to the original return value in the fragment
 

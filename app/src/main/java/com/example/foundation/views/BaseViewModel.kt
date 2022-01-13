@@ -10,6 +10,7 @@ import com.example.foundation.model.Result
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.TaskListener
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
+import com.example.foundation.model.tasks.factories.TaskFactory
 
 
 typealias LiveEvent<T> = LiveData<Event<T>>
@@ -20,7 +21,7 @@ typealias MutableLiveResult<T> = MutableLiveData<Result<T>>
 typealias MediatorLiveResult<T> = MediatorLiveData<Result<T>>
 
 
-open class BaseViewModel(private val dispatcher: Dispatcher): ViewModel() {
+open class BaseViewModel(private val dispatcher: Dispatcher, private val taskFactory: TaskFactory): ViewModel() {
     private val tasks = mutableSetOf<Task<*>>()
     open fun onResult(result: Any){
 
@@ -34,7 +35,7 @@ open class BaseViewModel(private val dispatcher: Dispatcher): ViewModel() {
         super.onCleared()
     }
 
-     private fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
+    fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
         tasks.add(this)
         this.enqueue(dispatcher = dispatcher){
             tasks.remove(this)

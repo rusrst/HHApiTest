@@ -96,7 +96,6 @@ class CreateRequest(): BaseFragment() {
                         renderSimpleResult(root = binding.root,
                             result = itResult,
                             onSuccess = {
-                                viewModel.addAreaRoomList(it)
                                 resultBinding.tryAgainButton.setOnClickListener(null)
                                 binding.textViewEnterNameCity.visibility = View.GONE
                             })
