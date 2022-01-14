@@ -73,11 +73,12 @@ class RequestListViewModel(
             navigator.launch(screen, result)
         }
 
-        private fun load(){
-            if (urlItem == null) navigator.goBack()
+    private fun load(){
+        if (urlItem == null) navigator.goBack()
+        taskFactory.async {
             repository.getRequestFromUrl(urlItem ?: "", null)
-                .into(_data)
+        }.into(_data)
 
-        }
+    }
 }
 
