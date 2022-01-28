@@ -24,7 +24,7 @@ class RequestList : BaseFragment(), HasScreenTitle {
     override val viewModel by screenViewModel<RequestListViewModel>()
     private var title: String = "List"
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(savedInstanceState == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)
+        if(savedInstanceState == null || viewModel.urlItem == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)
         super.onCreate(savedInstanceState)
     }
 
@@ -42,16 +42,16 @@ class RequestList : BaseFragment(), HasScreenTitle {
         val resultBinding = PartResultBinding.bind(binding.root)
 
         viewModel.getListRequestFromUrl()
-        viewModel.liveListShortItem.observe(viewLifecycleOwner, {result ->
+        viewModel.liveListShortItem.observe(viewLifecycleOwner) { result ->
 
             renderSimpleResult(root = binding.root,
-            result = result,
-            onSuccess = {
-                adapter.items = it ?: emptyList()
-                title = "In page = ${it?.size ?: 0}"
-                notifyScreenUpdates()
-            })
-        })
+                result = result,
+                onSuccess = {
+                    adapter.items = it ?: emptyList()
+                    title = "In page = ${it?.size ?: 0}"
+                    notifyScreenUpdates()
+                })
+        }
         resultBinding.tryAgainButton.setOnClickListener {
             viewModel.tryAgain()
         }

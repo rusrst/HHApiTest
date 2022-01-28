@@ -62,5 +62,4 @@ class DetailsViewModel(screen: DetailsFragment.Screen,
         }
         else throw Exception("IllegalArgumentException in load()")
     }
-
 }

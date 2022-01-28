@@ -28,7 +28,7 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
     private lateinit var binding: DetailsItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(savedInstanceState == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)?.substringBefore("?")
+        if (savedInstanceState == null || viewModel.urlItem  == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)?.substringBefore("?")
         super.onCreate(savedInstanceState)
     }
     override fun onCreateView(
@@ -53,14 +53,14 @@ class DetailsFragment(): BaseFragment(), HasScreenTitle {
                 super.onPageFinished(view, url)
             }
         }
-        viewModel.liveBigItem.observe(viewLifecycleOwner, {result ->
+        viewModel.liveBigItem.observe(viewLifecycleOwner) { result ->
             renderSimpleResult(root = binding.root,
                 result = result,
                 onSuccess = {
                     val str = Base64.encodeToString(it?.toByteArray(), Base64.NO_PADDING)
                     binding.webView.loadData(str, "text/html", "base64")
                 })
-        })
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 }
