@@ -1,7 +1,6 @@
 package com.example.hhapitest.views.listofroomrequest
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
 import com.example.foundation.model.tasks.factories.TaskFactory
@@ -9,10 +8,9 @@ import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.BaseViewModel
-import com.example.hhapitest.model.data.database.RoomRepository
-import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
-import com.example.hhapitest.model.repository.HhApiDataInternetRepository
-import com.example.hhapitest.views.requestlist.RequestList
+import com.example.hhapitest.model.database.RoomRepository
+import com.example.hhapitest.model.database.dataclassroom.RequestRoom
+import com.example.hhapitest.model.internet.HhApiDataInternetRepository
 
 class ListOfRoomRequestViewModel(
     screen: ListOfRoomRequest.Screen,

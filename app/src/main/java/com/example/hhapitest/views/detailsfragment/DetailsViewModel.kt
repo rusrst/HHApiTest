@@ -1,7 +1,6 @@
 package com.example.hhapitest.views.detailsfragment
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.foundation.model.ErrorResult
@@ -15,8 +14,8 @@ import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
-import com.example.hhapitest.model.repository.DataListener
-import com.example.hhapitest.model.repository.HhApiDataInternetRepository
+import com.example.hhapitest.model.internet.DataListener
+import com.example.hhapitest.model.internet.HhApiDataInternetRepository
 import java.lang.Exception
 
 

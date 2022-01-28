@@ -1,12 +1,11 @@
-package com.example.hhapitest.model.data.database
+package com.example.hhapitest.model.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
-import com.example.hhapitest.model.data.database.dataclassroom.ResponsesRoom
+import com.example.hhapitest.model.database.dataclassroom.ResponsesRoom
 
 @Dao
 interface ResponseRoomDatabaseInterface {

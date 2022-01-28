@@ -3,8 +3,6 @@ package com.example.hhapitest.views.createrequest
 import android.animation.ValueAnimator
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +17,8 @@ import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.R
 import com.example.hhapitest.databinding.CreateRequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
-import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
-import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
+import com.example.hhapitest.model.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.json.dataclassesforjson.EmployerRequest
 import com.example.hhapitest.views.CustomAutoCompleteAdapterAreas
 import com.example.hhapitest.views.CustomAutoCompleteAdapterEmployers
 import com.example.hhapitest.views.SimpleDialogFragment

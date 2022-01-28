@@ -1,10 +1,8 @@
-package com.example.hhapitest.model.data.database
+package com.example.hhapitest.model.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
-import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
+import com.example.hhapitest.model.database.dataclassroom.AreaRoom
 
 @Dao
 interface AreaRoomDatabaseInterface {

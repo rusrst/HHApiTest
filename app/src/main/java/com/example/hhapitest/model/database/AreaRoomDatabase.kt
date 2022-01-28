@@ -1,10 +1,10 @@
-package com.example.hhapitest.model.data.database
+package com.example.hhapitest.model.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
-import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
-import com.example.hhapitest.model.data.database.dataclassroom.ResponsesRoom
+import com.example.hhapitest.model.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.database.dataclassroom.RequestRoom
+import com.example.hhapitest.model.database.dataclassroom.ResponsesRoom
 
 @Database(entities = [AreaRoom::class,
     RequestRoom::class, ResponsesRoom::class],

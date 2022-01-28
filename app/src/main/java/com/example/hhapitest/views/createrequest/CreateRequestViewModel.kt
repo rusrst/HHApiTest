@@ -16,12 +16,11 @@ import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.R
-import com.example.hhapitest.model.data.*
-import com.example.hhapitest.model.data.database.RoomRepository
-import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
-import com.example.hhapitest.model.data.dataclassesforjson.Area
+import com.example.hhapitest.model.database.RoomRepository
+import com.example.hhapitest.model.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.json.dataclassesforjson.Area
 import com.example.hhapitest.model.json.Json
-import com.example.hhapitest.model.repository.HhApiDataInternetRepository
+import com.example.hhapitest.model.internet.HhApiDataInternetRepository
 
 class CreateRequestViewModel(screen: CreateRequest.Screen,
                              private val navigator: Navigator,

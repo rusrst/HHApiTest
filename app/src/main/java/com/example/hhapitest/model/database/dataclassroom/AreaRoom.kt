@@ -1,4 +1,4 @@
-package com.example.hhapitest.model.data.database.dataclassroom
+package com.example.hhapitest.model.database.dataclassroom
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

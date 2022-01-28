@@ -1,8 +1,8 @@
 package com.example.hhapitest.model.json
 
-import com.example.hhapitest.model.data.dataclassesforjson.Area
-import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
-import com.example.hhapitest.model.data.dataclassesforjson.EmployersRequest
+import com.example.hhapitest.model.json.dataclassesforjson.Area
+import com.example.hhapitest.model.json.dataclassesforjson.EmployerRequest
+import com.example.hhapitest.model.json.dataclassesforjson.EmployersRequest
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 

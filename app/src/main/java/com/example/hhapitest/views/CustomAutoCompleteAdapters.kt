@@ -13,8 +13,8 @@ import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
 import com.example.hhapitest.R
-import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
-import com.example.hhapitest.model.data.dataclassesforjson.EmployerRequest
+import com.example.hhapitest.model.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.json.dataclassesforjson.EmployerRequest
 import com.example.hhapitest.model.json.Json
 import com.example.hhapitest.views.createrequest.CreateRequestViewModel
 

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hhapitest.databinding.RequestItemBinding
-import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
+import com.example.hhapitest.model.database.dataclassroom.RequestRoom
 import com.example.hhapitest.views.requestlist.RequestList
 
 class ListOfRoomRequestAdapter (val navigator: ListOfRoomRequestViewModel):

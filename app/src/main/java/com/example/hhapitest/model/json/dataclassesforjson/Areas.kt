@@ -1,4 +1,4 @@
-package com.example.hhapitest.model.data.dataclassesforjson
+package com.example.hhapitest.model.json.dataclassesforjson
 
 import kotlinx.serialization.SerialName
 

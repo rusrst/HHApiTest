@@ -1,8 +1,5 @@
-package com.example.hhapitest.model.data.dataclassesforjson
+package com.example.hhapitest.model.json.dataclassesforjson
 
-import androidx.room.Embedded
-import androidx.room.Ignore
-import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable

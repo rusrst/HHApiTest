@@ -1,8 +1,7 @@
-package com.example.hhapitest.model.data.database.dataclassroom
+package com.example.hhapitest.model.database.dataclassroom
 
 import androidx.room.*
-import com.example.hhapitest.model.data.dataclassesforjson.*
-import kotlinx.serialization.SerialName
+import com.example.hhapitest.model.json.dataclassesforjson.*
 
 @Entity(
     primaryKeys = [
@@ -21,25 +20,25 @@ import kotlinx.serialization.SerialName
     ]
 )
 data class ResponsesRoom (var id: String = "", var name: String = "",
-                     @Embedded(prefix = "department_")
+                          @Embedded(prefix = "department_")
                      var department: Department,
-                     @Embedded(prefix = "area_")
+                          @Embedded(prefix = "area_")
                      var area: ShortArea,
-                     @Embedded(prefix = "salary_")
+                          @Embedded(prefix = "salary_")
                      var salary: ShortSalary,
-                     @Embedded(prefix = "type_")
+                          @Embedded(prefix = "type_")
                      var type: TypeVacancy,
-                     @Embedded(prefix = "address_")
+                          @Embedded(prefix = "address_")
                      var address: AddressRequest,
-                     var publishAt: String = "",
-                     var url: String = "", val altUrl: String = "",
-                     @Embedded(prefix = "employer_")
+                          var publishAt: String = "",
+                          var url: String = "", val altUrl: String = "",
+                          @Embedded(prefix = "employer_")
                      var employer: Employer,
-                     @Embedded(prefix = "snippet")
+                          @Embedded(prefix = "snippet")
                      var snippet: Snippet,
-                     var createDB: String = "",
-                     var updateDB: String = "",
-                     var requestID: Int? = null
+                          var createDB: String = "",
+                          var updateDB: String = "",
+                          var requestID: Int? = null
 )
 data class Department(val id: String? = null, val name: String? = null)
 

@@ -5,8 +5,8 @@ import com.example.foundation.BaseApplication
 import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
 import com.example.foundation.model.tasks.factories.ThreadTasksFactory
 import com.example.foundation.uiactions.AndroidUIActions
-import com.example.hhapitest.model.data.database.RoomRepository
-import com.example.hhapitest.model.repository.HhApiDataInternetRepository
+import com.example.hhapitest.model.database.RoomRepository
+import com.example.hhapitest.model.internet.HhApiDataInternetRepository
 
 class AppHhTest: Application(), BaseApplication {
     private lateinit var dispatcher: MainThreadDispatcher

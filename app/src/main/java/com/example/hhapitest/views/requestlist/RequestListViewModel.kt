@@ -1,21 +1,20 @@
 package com.example.hhapitest.views.requestlist
 
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.foundation.model.*
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
 import com.example.foundation.model.tasks.factories.TaskFactory
-import com.example.hhapitest.model.repository.HhApiDataInternetRepository
+import com.example.hhapitest.model.internet.HhApiDataInternetRepository
 import com.example.foundation.navigator.Navigator
 import com.example.foundation.uiactions.UIActions
 import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
-import com.example.hhapitest.model.data.database.RoomRepository
-import com.example.hhapitest.model.data.dataclassesforjson.ListRequest
-import com.example.hhapitest.model.data.dataclassesforjson.ShortItem
+import com.example.hhapitest.model.database.RoomRepository
+import com.example.hhapitest.model.json.dataclassesforjson.ListRequest
+import com.example.hhapitest.model.json.dataclassesforjson.ShortItem
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
