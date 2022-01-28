@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="20"
-        tools:listitem="@layout/listOfRoomRequestItem" />
+        tools:listitem="@layout/listofroomrequestitem" />
     <include layout="@layout/part_result"
         android:visibility="gone" />
 

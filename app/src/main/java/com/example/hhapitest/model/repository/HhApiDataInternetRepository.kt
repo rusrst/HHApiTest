@@ -27,12 +27,11 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
         hhAPI = retrofit.create(HhAPI::class.java)
     }
 
-
-    override fun getRequestFromUrl(url: String, dataListener: DataListener?): Task<String> =
-        taskFactory.async {
+     fun getRequestFromUrl(url: String, dataListener: DataListener?): String
+        {
             val data: Call<String> = hhAPI.getData(url)
             val response = data.execute()
-            return@async response.body().toString()
+            return response.body().toString()
         }
 
     fun getRequestFromUrlWithJsonParser(

@@ -1,6 +1,7 @@
 package com.example.hhapitest.views.detailsfragment
 
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.foundation.model.ErrorResult
@@ -55,9 +56,10 @@ class DetailsViewModel(screen: DetailsFragment.Screen,
     private fun load(url: String?){
         if (url != "" && url != null) {
             urlItem = url
-            repository.getRequestFromUrl(url, null).into(_data)
+            taskFactory.async {
+              repository.getRequestFromUrl(url, null)
+            }.into(_data)
         }
-        else throw Exception("IllegalArgumentException")
+        else throw Exception("IllegalArgumentException in load()")
     }
-
 }
