@@ -13,12 +13,13 @@ import com.example.foundation.views.BaseViewModel
 import com.example.foundation.views.LiveResult
 import com.example.foundation.views.MutableLiveResult
 import com.example.hhapitest.model.database.RoomRepository
+import com.example.hhapitest.model.database.dataclassroom.*
 import com.example.hhapitest.model.json.dataclassesforjson.ListRequest
 import com.example.hhapitest.model.json.dataclassesforjson.ShortItem
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.sql.Date
 
-typealias Listener = (String)->Unit
 
 class RequestListViewModel(
     screen: RequestList.Screen,
@@ -32,6 +33,7 @@ class RequestListViewModel(
 ) : BaseViewModel(dispatcher, taskFactory) {
 
     var urlItem: String? = null
+    var idItem: String? = null
     fun tryAgain(){
         load()
     }
@@ -49,6 +51,61 @@ class RequestListViewModel(
         taskFactory.async {
             val data= repository.getRequestFromUrl(urlItem ?: "", null)
             val list = Json.decodeFromString<ListRequest>(data)
+            val responseRoom =  ResponseRoom(department = Department(), area = ShortArea(), salary = ShortSalary(),
+                type = TypeVacancy(), address = AddressRequest(), employer = Employer(), snippet = Snippet())
+            list.items?.forEach {
+                responseRoom.id = it.id ?: 0
+                responseRoom.name = it.name
+                responseRoom.department.apply {
+                    id = it.department?.id
+                    name = it.department?.name
+                }
+                responseRoom.area.apply {
+                    id = it.area?.id
+                    name = it.area?.name
+                    url = it.area?.url
+                }
+                responseRoom.salary.apply {
+                    from = it.salary?.from
+                    to = it.salary?.to
+                    currency = it.salary?.currency
+                    gross = it.salary?.gross
+                }
+                responseRoom.type.apply {
+                    id = it.type?.id
+                    name = it.type?.name
+                }
+                responseRoom.address.apply {
+                    city = it.address?.city
+                    street = it.address?.street
+                    building = it.address?.building
+                    description = it.address?.description
+                    lat = it.address?.lat
+                    lng = it.address?.lng
+                    raw = it.address?.raw
+                    metro = it.address?.metro
+                    id = it.address?.id
+                }
+                responseRoom.publishAt = it.published_at ?: ""
+                responseRoom.url = it.url ?: ""
+                responseRoom.altUrl = it.alternate_url ?: ""
+                responseRoom.employer.apply {
+                    id = it.employer?.id
+                    name = it.employer?.name
+                    url = it.employer?.url
+                    alternate_url = it.employer?.alternate_url
+                    vacancies_url = it.employer?.vacancies_url
+                    trusted = it.employer?.trusted
+                }
+                responseRoom.snippet.apply {
+                    requirement = it.snippet?.requirement
+                    responsibility = it.snippet?.responsibility
+                }
+                responseRoom.createDB = Date(System.currentTimeMillis()).toString()
+                responseRoom.updateDB = Date(System.currentTimeMillis()).toString()
+                responseRoom.requestID = idItem?.toInt()
+                roomRepository.insertResponseRoom(responseRoom)
+            }
             return@async list.items
         }.into(_data)
     }

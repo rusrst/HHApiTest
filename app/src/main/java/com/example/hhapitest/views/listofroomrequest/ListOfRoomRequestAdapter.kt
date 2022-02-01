@@ -33,7 +33,7 @@ class ListOfRoomRequestAdapter (val navigator: ListOfRoomRequestViewModel):
         }
         holder.binding.root.setOnClickListener {
             if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION){
-                navigator.launch(RequestList.Screen(), currentItem.request)
+                navigator.launch(RequestList.Screen(), currentItem.id.toString() + ":" + currentItem.request)
             }
         }
     }

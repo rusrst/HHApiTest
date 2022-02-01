@@ -7,6 +7,7 @@ import com.example.foundation.model.tasks.TaskListener
 import com.example.foundation.model.tasks.dispatchers.MainThreadDispatcher
 import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.hhapitest.model.database.dataclassroom.AreaRoom
+import com.example.hhapitest.model.database.dataclassroom.ResponseRoom
 
 private const val DATABASE_NAME = "AreaDatabase.db"
 class RoomRepository (context: Context, private val taskFactory: TaskFactory, private val dispatcher: com.example.foundation.model.tasks.dispatchers.Dispatcher) {
@@ -19,7 +20,8 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
         .build()
 
     private val databaseAreaDAO = database.areaDAO()
-    private val requestAreaDAO = database.requestDAO()
+    private val requestDAO = database.requestDAO()
+    private val responseDAO = database.responseDao()
 
     fun addAreasRoom (listAreasRoom: List<AreaRoom>){
         try {
@@ -44,8 +46,9 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
 
     fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoom(str)
 
-    fun getListRequests() = requestAreaDAO.getRequestsRoomLiveData()
+    fun getListRequests() = requestDAO.getRequestsRoomLiveData()
 
+    fun insertResponseRoom (responseRoom: ResponseRoom) = responseDAO.insertResponseRoom(responseRoom)
 
     private val tasks = mutableSetOf<Task<*>>()
 

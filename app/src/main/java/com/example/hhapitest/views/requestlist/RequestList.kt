@@ -24,7 +24,11 @@ class RequestList : BaseFragment(), HasScreenTitle {
     override val viewModel by screenViewModel<RequestListViewModel>()
     private var title: String = "List"
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(savedInstanceState == null || viewModel.urlItem == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)
+        if(savedInstanceState == null || viewModel.urlItem == null) {
+            val str = (arguments?.getSerializable(ARG_STARTUP) as String?)
+            viewModel.urlItem = str?.substringAfter(":")
+            viewModel.idItem = str?.substringBefore(":")
+        }
         super.onCreate(savedInstanceState)
     }
 

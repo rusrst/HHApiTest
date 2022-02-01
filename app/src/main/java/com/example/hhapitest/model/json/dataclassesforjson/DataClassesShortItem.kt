@@ -59,7 +59,13 @@ data class AddressRequest (var city: String? = null,
 @kotlinx.serialization.Serializable
 data class ShortSalary(val from: Int? = null, val to: Int? = null, val currency: String? = null, val gross: Boolean? = null)
 @kotlinx.serialization.Serializable
-data class Employer(val id: Int? = null, val name: String? = null, val url: String? = null, val alternate_url: String? = null, val logo_urls: LogoUrls?, val vacancies_url: String? = null, val trusted: Boolean? = null)
+data class Employer(val id: Int? = null,
+                    val name: String? = null,
+                    val url: String? = null,
+                    val alternate_url: String? = null,
+                    val logo_urls: LogoUrls?,
+                    val vacancies_url: String? = null,
+                    val trusted: Boolean? = null)
 @kotlinx.serialization.Serializable
 data class LogoUrls(@SerialName("240")val size_240: String? = null, @SerialName("90") val size_90: String? = null, @SerialName("original") val original: String? = null)
 @kotlinx.serialization.Serializable

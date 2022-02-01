@@ -44,7 +44,7 @@ class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
         binding.listOfRoomRequestActionButton.setOnClickListener {
             viewModel.launch(CreateRequest.Screen(), null)
         }
-        viewModel.getListOfRequests().observe(viewLifecycleOwner, {list ->
+        viewModel.getListOfRequests().observe(viewLifecycleOwner) { list ->
 
             renderSimpleResult(root = binding.root,
                 result = SuccessResult(list),
@@ -53,7 +53,7 @@ class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
                     title = "In page = ${it?.size ?: 0}"
                     notifyScreenUpdates()
                 })
-        })
+        }
         return binding.root
     }
 }

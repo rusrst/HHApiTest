@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e2c6794e746afe6595c539cda96726d0",
+    "identityHash": "6d8700d20c868786d1d5938a6eec38e7",
     "entities": [
       {
         "tableName": "AreaRoom",
@@ -75,20 +75,20 @@
         "foreignKeys": []
       },
       {
-        "tableName": "ResponsesRoom",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `publishAt` TEXT NOT NULL, `url` TEXT NOT NULL, `altUrl` TEXT NOT NULL, `createDB` TEXT NOT NULL, `updateDB` TEXT NOT NULL, `requestID` INTEGER, `department_id` TEXT, `department_name` TEXT, `area_id` INTEGER, `area_name` TEXT, `area_url` TEXT, `salary_from` INTEGER, `salary_to` INTEGER, `salary_currency` TEXT, `salary_gross` INTEGER, `type_id` TEXT, `type_name` TEXT, `address_city` TEXT, `address_street` TEXT, `address_building` TEXT, `address_description` TEXT, `address_lat` REAL, `address_lng` REAL, `address_raw` TEXT, `address_metro` TEXT, `address_id` INTEGER, `employer_id` INTEGER, `employer_name` TEXT, `employer_url` TEXT, `employer_alternate_url` TEXT, `employer_vacancies_url` TEXT, `employer_trusted` INTEGER, `snippetrequirement` TEXT, `snippetresponsibility` TEXT, PRIMARY KEY(`id`, `publishAt`), FOREIGN KEY(`requestID`) REFERENCES `RequestRoom`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "tableName": "ResponseRoom",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `publishAt` TEXT NOT NULL, `url` TEXT NOT NULL, `altUrl` TEXT NOT NULL, `createDB` TEXT NOT NULL, `updateDB` TEXT NOT NULL, `requestID` INTEGER, `department_id` TEXT, `department_name` TEXT, `area_id` INTEGER, `area_name` TEXT, `area_url` TEXT, `salary_from` INTEGER, `salary_to` INTEGER, `salary_currency` TEXT, `salary_gross` INTEGER, `type_id` TEXT, `type_name` TEXT, `address_city` TEXT, `address_street` TEXT, `address_building` TEXT, `address_description` TEXT, `address_lat` REAL, `address_lng` REAL, `address_raw` TEXT, `address_metro` TEXT, `address_id` INTEGER, `employer_id` INTEGER, `employer_name` TEXT, `employer_url` TEXT, `employer_alternate_url` TEXT, `employer_vacancies_url` TEXT, `employer_trusted` INTEGER, `snippetrequirement` TEXT, `snippetresponsibility` TEXT, PRIMARY KEY(`id`, `publishAt`), FOREIGN KEY(`requestID`) REFERENCES `RequestRoom`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "publishAt",
@@ -304,22 +304,22 @@
         },
         "indices": [
           {
-            "name": "index_ResponsesRoom_createDB",
+            "name": "index_ResponseRoom_createDB",
             "unique": false,
             "columnNames": [
               "createDB"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_ResponsesRoom_createDB` ON `${TABLE_NAME}` (`createDB`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ResponseRoom_createDB` ON `${TABLE_NAME}` (`createDB`)"
           },
           {
-            "name": "index_ResponsesRoom_requestID",
+            "name": "index_ResponseRoom_requestID",
             "unique": false,
             "columnNames": [
               "requestID"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_ResponsesRoom_requestID` ON `${TABLE_NAME}` (`requestID`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ResponseRoom_requestID` ON `${TABLE_NAME}` (`requestID`)"
           }
         ],
         "foreignKeys": [
@@ -340,7 +340,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e2c6794e746afe6595c539cda96726d0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6d8700d20c868786d1d5938a6eec38e7')"
     ]
   }
 }

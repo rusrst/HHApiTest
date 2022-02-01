@@ -19,28 +19,28 @@ import com.example.hhapitest.model.json.dataclassesforjson.*
                     onDelete = ForeignKey.SET_NULL)
     ]
 )
-data class ResponsesRoom (var id: String = "", var name: String = "",
-                          @Embedded(prefix = "department_")
+data class ResponseRoom (var id: Int = 0, var name: String? = null,
+                         @Embedded(prefix = "department_")
                      var department: Department,
-                          @Embedded(prefix = "area_")
+                         @Embedded(prefix = "area_")
                      var area: ShortArea,
-                          @Embedded(prefix = "salary_")
+                         @Embedded(prefix = "salary_")
                      var salary: ShortSalary,
-                          @Embedded(prefix = "type_")
+                         @Embedded(prefix = "type_")
                      var type: TypeVacancy,
-                          @Embedded(prefix = "address_")
+                         @Embedded(prefix = "address_")
                      var address: AddressRequest,
-                          var publishAt: String = "",
-                          var url: String = "", val altUrl: String = "",
-                          @Embedded(prefix = "employer_")
+                         var publishAt: String = "",
+                         var url: String = "", var altUrl: String = "",
+                         @Embedded(prefix = "employer_")
                      var employer: Employer,
-                          @Embedded(prefix = "snippet")
+                         @Embedded(prefix = "snippet")
                      var snippet: Snippet,
-                          var createDB: String = "",
-                          var updateDB: String = "",
-                          var requestID: Int? = null
+                         var createDB: String = "",
+                         var updateDB: String = "",
+                         var requestID: Int? = null
 )
-data class Department(val id: String? = null, val name: String? = null)
+data class Department(var id: String? = null, var name: String? = null)
 
 data class ShortArea(
      var id: Int? = null,
@@ -48,9 +48,13 @@ data class ShortArea(
      var url: String? = null){
 }
 
-data class ShortSalary(val from: Int? = null, val to: Int? = null, val currency: String? = null, val gross: Boolean? = null)
+data class ShortSalary(
+    var from: Int? = null,
+    var to: Int? = null,
+    var currency: String? = null,
+    var gross: Boolean? = null)
 
-data class TypeVacancy(val id: String? = null, val name: String? = null)
+data class TypeVacancy(var id: String? = null, var name: String? = null)
 
 data class AddressRequest(var city: String? = null,
                           var street: String? = null,
@@ -64,14 +68,17 @@ data class AddressRequest(var city: String? = null,
                           var id: Int? = null)
 
 data class Employer(var id: Int? = null,
-                    var name: String? = null, var url: String? = null,
-                    var alternate_url: String? = null, @Ignore var logo_urls: LogoUrls? = null,
-                    var vacancies_url: String? = null, var trusted: Boolean? = null)
+                    var name: String? = null,
+                    var url: String? = null,
+                    var alternate_url: String? = null,
+                    @Ignore var logo_urls: LogoUrls? = null,
+                    var vacancies_url: String? = null,
+                    var trusted: Boolean? = null)
 
 data class LogoUrls(var size_240: String? = null, var size_90: String? = null, var original: String? = null)
 
-data class Snippet(val requirement: String? = null, val responsibility: String? = null)
+data class Snippet(var requirement: String? = null, var responsibility: String? = null)
 
-fun ResponsesRoom.myEqual(obj: ResponsesRoom): Boolean{
+fun ResponseRoom.myEqual(obj: ResponseRoom): Boolean{
     return (id == obj.id && publishAt == obj.publishAt)
 }
