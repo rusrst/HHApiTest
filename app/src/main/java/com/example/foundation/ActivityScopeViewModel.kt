@@ -10,10 +10,12 @@ const val ARG_SCREEN = "ARG_SCREEN"
 const val ARG_STARTUP = "ARG_STARTUP"
 
 
-class ActivityScopeViewModel(val uiActions: UIActions,
-                    val navigator: IntermediateNavigator): ViewModel(),
-                    UIActions by uiActions,
-                    Navigator by navigator {
+class ActivityScopeViewModel(
+    val uiActions: UIActions,
+    val navigator: IntermediateNavigator
+) : ViewModel(),
+    UIActions by uiActions,
+    Navigator by navigator {
 
 
     override fun onCleared() {

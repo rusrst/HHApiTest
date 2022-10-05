@@ -1,8 +1,8 @@
 package com.example.hhapitest
 
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.foundation.ActivityScopeViewModel
 import com.example.foundation.navigator.IntermediateNavigator
 import com.example.foundation.navigator.StackFragmentNavigator
@@ -10,10 +10,7 @@ import com.example.foundation.uiactions.AndroidUIActions
 import com.example.foundation.utils.viewModelCreator
 import com.example.foundation.views.FragmentsHolder
 import com.example.hhapitest.databinding.ActivityMainBinding
-import com.example.hhapitest.databinding.CreateRequestBinding
-import com.example.hhapitest.views.createrequest.CreateRequest
 import com.example.hhapitest.views.listofroomrequest.ListOfRoomRequest
-import com.example.hhapitest.views.requestlist.RequestList
 
 class MainActivity : AppCompatActivity(), FragmentsHolder {
     private val mainViewModel by viewModelCreator<ActivityScopeViewModel> {
@@ -22,6 +19,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
             navigator = IntermediateNavigator()
         )
     }
+
     //private val actions = mutableListOf<() -> Unit>()
     lateinit var binding: ActivityMainBinding// binding 1
     private lateinit var navigator: StackFragmentNavigator
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
             idContainer = R.id.fragment_container,
             defaultTitle = this.getString(R.string.app_name),
             animations = null,
-            initialScreeCreator = {ListOfRoomRequest.Screen()}
+            initialScreeCreator = { ListOfRoomRequest.Screen() }
         )
         navigator.onCreate(savedInstanceState)
     }

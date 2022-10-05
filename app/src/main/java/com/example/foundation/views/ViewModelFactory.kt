@@ -17,13 +17,16 @@ inline fun <reified VM : ViewModel> BaseFragment.screenViewModel() = viewModels<
     val activityScopeViewModel = (requireActivity() as FragmentsHolder).getActivityScopeViewModel()
 
 
-    val dependencies = listOf(screen, activityScopeViewModel) + application.singletonScopeDependencies
+    val dependencies =
+        listOf(screen, activityScopeViewModel) + application.singletonScopeDependencies
 
     ViewModelFactory(dependencies, this)
 }
 
-class ViewModelFactory (private val dependencies: List<Any>,
-    owner: SavedStateRegistryOwner): AbstractSavedStateViewModelFactory(owner, null) {
+class ViewModelFactory(
+    private val dependencies: List<Any>,
+    owner: SavedStateRegistryOwner
+) : AbstractSavedStateViewModelFactory(owner, null) {
     override fun <T : ViewModel?> create(
         key: String,
         modelClass: Class<T>,

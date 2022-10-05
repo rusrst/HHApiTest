@@ -3,7 +3,7 @@ package com.example.foundation.uiactions
 import android.content.Context
 import android.widget.Toast
 
-class AndroidUIActions(private val appContext: Context): UIActions {
+class AndroidUIActions(private val appContext: Context) : UIActions {
     override fun toast(message: String) {
         Toast.makeText(appContext, message, Toast.LENGTH_SHORT).show()
     }

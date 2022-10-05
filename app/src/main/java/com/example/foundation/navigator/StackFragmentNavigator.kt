@@ -15,86 +15,95 @@ import com.example.foundation.views.BaseScreen
 import com.example.foundation.views.HasScreenTitle
 import java.io.Serializable
 
-class StackFragmentNavigator(private val activity: AppCompatActivity,
-                             @IdRes private val idContainer: Int,
-                             private val defaultTitle: String,
-                             private val animations: Animations?,
-                             private val initialScreeCreator: () -> BaseScreen,
-                            ) : Navigator {
-    private var result : Event<Any>? = null
-    override fun launch(screen: BaseScreen, result: Any?){
+class StackFragmentNavigator(
+    private val activity: AppCompatActivity,
+    @IdRes private val idContainer: Int,
+    private val defaultTitle: String,
+    private val animations: Animations?,
+    private val initialScreeCreator: () -> BaseScreen,
+) : Navigator {
+    private var result: Event<Any>? = null
+    override fun launch(screen: BaseScreen, result: Any?) {
         launchFragment(screen, result = result)
     }
 
     override fun goBack(result: Any?) {
-        if (result != null){
+        if (result != null) {
             this.result = Event(result)
         }
         activity.onBackPressed()
     }
 
-    fun onCreate(savedInstanceState: Bundle?){
-        if (savedInstanceState == null){
+    fun onCreate(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
             launchFragment(
                 initialScreeCreator(),
-                false)
+                false
+            )
         }
         activity.supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentCallbacks, false)
     }
 
-    fun onDestroy(){
+    fun onDestroy() {
         activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentCallbacks)
     }
 
-    private fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true, result: Any? = null){
+    private fun launchFragment(
+        screen: BaseScreen,
+        addToBackStack: Boolean = true,
+        result: Any? = null
+    ) {
         val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
         // set screen object as fragment's argument
-        val bundle = Bundle().apply{putSerializable(ARG_SCREEN, screen)}
-        if (result != null){
-            bundle.putSerializable(ARG_STARTUP, result as Serializable) // WARRNING, THIS CODE MUST BE SEIALIZABLE
+        val bundle = Bundle().apply { putSerializable(ARG_SCREEN, screen) }
+        if (result != null) {
+            bundle.putSerializable(
+                ARG_STARTUP,
+                result as Serializable
+            ) // WARRNING, THIS CODE MUST BE SEIALIZABLE
         }
         fragment.arguments = bundle
         val transaction = activity.supportFragmentManager.beginTransaction()
         if (addToBackStack) transaction.addToBackStack(null)
-        if (animations != null){
+        if (animations != null) {
             transaction
                 .setCustomAnimations(
                     animations.enterAnim,
                     animations.exitAnim,
                     animations.popEnterAnim,
                     animations.popExitAnim,
-                )}
-                transaction
-                .replace(idContainer, fragment)
-                .commit()
+                )
+        }
+        transaction
+            .replace(idContainer, fragment)
+            .commit()
 
     }
 
-    fun notifyScreenUpdates(){
+    fun notifyScreenUpdates() {
         val f = activity.supportFragmentManager.findFragmentById(idContainer)
 
         if (activity.supportFragmentManager.backStackEntryCount > 0) {
             activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
             activity.supportActionBar?.setDisplayShowHomeEnabled(true)
-        }
-        else{
+        } else {
             activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
             activity.supportActionBar?.setDisplayShowHomeEnabled(false)
         }
 
-        if (f is HasScreenTitle && f.getScreenTitle() !=null) {
+        if (f is HasScreenTitle && f.getScreenTitle() != null) {
             activity.supportActionBar?.title = f.getScreenTitle()
-        }
-        else activity.supportActionBar?.title = defaultTitle
+        } else activity.supportActionBar?.title = defaultTitle
     }
 
-    fun publishResults(f: Fragment){
+    fun publishResults(f: Fragment) {
         val result = result?.getValue() ?: return
-        if (f is BaseFragment){
+        if (f is BaseFragment) {
             f.viewModel.onResult(result)
         }
     }
-    private val fragmentCallbacks = object: FragmentManager.FragmentLifecycleCallbacks(){
+
+    private val fragmentCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(
             fm: FragmentManager,
             f: Fragment,

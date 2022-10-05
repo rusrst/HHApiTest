@@ -44,6 +44,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Try again"
-            android:background="@color/purple_500"/>
+            android:background="@color/purple_500" />
     </LinearLayout>
 </merge>

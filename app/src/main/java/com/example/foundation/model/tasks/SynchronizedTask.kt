@@ -1,14 +1,14 @@
 package com.example.foundation.model.tasks
 
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
-import com.example.hhapitest.R
 import java.util.concurrent.atomic.AtomicBoolean
 
 class SynchronizedTask<T>(
     private val task: Task<T>
-) : Task<T>{
+) : Task<T> {
 
-@Volatile private var cancelled = false
+    @Volatile
+    private var cancelled = false
     private var executed = false
 
     private var listenerCalled = AtomicBoolean(false)
@@ -23,12 +23,12 @@ class SynchronizedTask<T>(
         return task.await()
     }
 
-    override fun enqueue(dispatcher: Dispatcher, listener: TaskListener<T>) = synchronized(this){
+    override fun enqueue(dispatcher: Dispatcher, listener: TaskListener<T>) = synchronized(this) {
         if (cancelled) return
         if (executed) throw IllegalArgumentException("Task has been executed")
         executed = true
-        val finalListener: TaskListener<T> = {result->
-            if (listenerCalled.compareAndSet(false, true)){
+        val finalListener: TaskListener<T> = { result ->
+            if (listenerCalled.compareAndSet(false, true)) {
                 if (!cancelled) listener(result)
             }
         }
@@ -36,7 +36,7 @@ class SynchronizedTask<T>(
     }
 
     override fun cancel() = synchronized(this) {
-        if(listenerCalled.compareAndSet(false, true)) {
+        if (listenerCalled.compareAndSet(false, true)) {
             if (cancelled) return
             cancelled = true
             task.cancel()

@@ -6,10 +6,9 @@ import android.os.Looper
 class MainThreadDispatcher : Dispatcher {
     private val handler = Handler(Looper.getMainLooper())
     override fun dispatch(block: () -> Unit) {
-        if (Looper.getMainLooper().thread.id == Thread.currentThread().id){
+        if (Looper.getMainLooper().thread.id == Thread.currentThread().id) {
             block()
-        }
-        else{
+        } else {
             handler.post(block)
         }
     }

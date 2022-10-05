@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foundation.model.SuccessResult
-import com.example.foundation.views.*
+import com.example.foundation.views.BaseFragment
+import com.example.foundation.views.BaseScreen
+import com.example.foundation.views.HasScreenTitle
+import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.databinding.ListofroomrequestBinding
 import com.example.hhapitest.databinding.PartResultBinding
 import com.example.hhapitest.views.createrequest.CreateRequest
@@ -44,7 +47,7 @@ class ListOfRoomRequest : BaseFragment(), HasScreenTitle {
         binding.listOfRoomRequestActionButton.setOnClickListener {
             viewModel.launch(CreateRequest.Screen(), null)
         }
-        viewModel.getListOfRequests().observe(viewLifecycleOwner, {list ->
+        viewModel.getListOfRequests().observe(viewLifecycleOwner, { list ->
 
             renderSimpleResult(root = binding.root,
                 result = SuccessResult(list),

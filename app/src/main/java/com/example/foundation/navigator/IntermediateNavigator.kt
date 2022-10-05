@@ -14,11 +14,11 @@ class IntermediateNavigator : Navigator {
         it.goBack(result)
     }
 
-    fun setTarget(navigator: Navigator?){
+    fun setTarget(navigator: Navigator?) {
         targetNavigator.resource = navigator
     }
 
-    fun clear(){
+    fun clear() {
         targetNavigator.clear()
     }
 

@@ -9,8 +9,8 @@ typealias ViewModelCreator = () -> ViewModel?
 
 class ViewModelFactory(
     private val creator: ViewModelCreator
-): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return creator() as T
     }
 }

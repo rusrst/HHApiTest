@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class RequestRoom(@ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long,
-                       val name: String? = "NAME",
-                       var request: String,
-                       val employerName: String?)
+data class RequestRoom(
+    @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long,
+    val name: String? = "NAME",
+    var request: String,
+    val employerName: String?
+)

@@ -7,14 +7,16 @@ import com.example.hhapitest.databinding.RequestItemBinding
 import com.example.hhapitest.model.data.database.dataclassroom.RequestRoom
 import com.example.hhapitest.views.requestlist.RequestList
 
-class ListOfRoomRequestAdapter (val navigator: ListOfRoomRequestViewModel):
+class ListOfRoomRequestAdapter(val navigator: ListOfRoomRequestViewModel) :
     RecyclerView.Adapter<ListOfRoomRequestAdapter.ListOfRoomRequestHolder>() {
     var items: List<RequestRoom> = emptyList()
         set(newValue) {
             field = newValue
             notifyDataSetChanged()
         }
-    class ListOfRoomRequestHolder(val binding: RequestItemBinding): RecyclerView.ViewHolder(binding.root){
+
+    class ListOfRoomRequestHolder(val binding: RequestItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOfRoomRequestHolder {
@@ -32,7 +34,7 @@ class ListOfRoomRequestAdapter (val navigator: ListOfRoomRequestViewModel):
             nameEmployer.text = currentItem.employerName
         }
         holder.binding.root.setOnClickListener {
-            if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION){
+            if (holder.bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 navigator.launch(RequestList.Screen(), currentItem.request)
             }
         }

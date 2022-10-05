@@ -7,9 +7,9 @@ import kotlin.reflect.KProperty
 class Await<T>() {
     private val countDownLatch = CountDownLatch(1)
 
-    private var value : AtomicReference<T> = AtomicReference(null)
+    private var value: AtomicReference<T> = AtomicReference(null)
 
-    operator fun getValue (thisRef: Any, property: KProperty<*>): T {
+    operator fun getValue(thisRef: Any, property: KProperty<*>): T {
         countDownLatch.await()
         return value.get()
     }

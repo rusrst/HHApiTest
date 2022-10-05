@@ -3,8 +3,6 @@ package com.example.hhapitest.views.createrequest
 import android.animation.ValueAnimator
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -27,13 +25,13 @@ import com.example.hhapitest.views.SimpleDialogFragment
 import com.example.hhapitest.views.renderSimpleResult
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import java.lang.IllegalArgumentException
 
 
-class CreateRequest(): BaseFragment() {
+class CreateRequest() : BaseFragment() {
 
     private val buildingRequest = BuildingRequest()
     override val viewModel by screenViewModel<CreateRequestViewModel>()
+
     class Screen : BaseScreen
 
     private lateinit var binding: CreateRequestBinding
@@ -55,17 +53,20 @@ class CreateRequest(): BaseFragment() {
             result = SuccessResult(true),
             onSuccess = {})
         binding.textViewEnterNameCity.visibility = View.GONE
-        viewModel.checkingDatabaseOfAreas.observe(viewLifecycleOwner){result ->
+        viewModel.checkingDatabaseOfAreas.observe(viewLifecycleOwner) { result ->
             viewModel.checkDatabaseOfAreasEnd(result)
         }
-        viewModel.state.observe(viewLifecycleOwner){
-            if (it.showDialog){
+        viewModel.state.observe(viewLifecycleOwner) {
+            if (it.showDialog) {
                 val simpleDialog = SimpleDialogFragment()
                 val args = Bundle()
                 args.putString("title", "${it.dataSimpleDialog?.title}")
                 args.putString("text", "${it.dataSimpleDialog?.text}")
                 simpleDialog.arguments = args
-                simpleDialog.show(requireActivity().supportFragmentManager, SimpleDialogFragment.TAG)
+                simpleDialog.show(
+                    requireActivity().supportFragmentManager,
+                    SimpleDialogFragment.TAG
+                )
             }
         }
 
@@ -80,71 +81,80 @@ class CreateRequest(): BaseFragment() {
             listenerSelectArea(adapterAreas, id)
         }
         binding.addCityEditTextAreas.setOnFocusChangeListener { v, hasFocus ->
-                listenerOnFocusChange (v, hasFocus)
+            listenerOnFocusChange(v, hasFocus)
         }
     }
 
 
-
     private fun setupSimpleDialogFragmentListener() {
-        requireActivity().supportFragmentManager.setFragmentResultListener(SimpleDialogFragment.KEY, viewLifecycleOwner, FragmentResultListener { _, result ->
-            when (result.getInt(SimpleDialogFragment.TAG)) {
-                DialogInterface.BUTTON_POSITIVE -> {
-                    val resultBinding = PartResultBinding.bind(binding.root)
-                    viewModel.getListAreas()
-                    viewModel.listAreas.observe(viewLifecycleOwner){ itResult ->
-                        renderSimpleResult(root = binding.root,
-                            result = itResult,
-                            onSuccess = {
-                                resultBinding.tryAgainButton.setOnClickListener(null)
-                                binding.textViewEnterNameCity.visibility = View.GONE
-                            })
-                    }
-                    resultBinding.tryAgainButton.setOnClickListener {
-                        viewModel.tryAgain{ viewModel.getListAreas() }
-                    }
+        requireActivity().supportFragmentManager.setFragmentResultListener(
+            SimpleDialogFragment.KEY,
+            viewLifecycleOwner,
+            FragmentResultListener { _, result ->
+                when (result.getInt(SimpleDialogFragment.TAG)) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        val resultBinding = PartResultBinding.bind(binding.root)
+                        viewModel.getListAreas()
+                        viewModel.listAreas.observe(viewLifecycleOwner) { itResult ->
+                            renderSimpleResult(root = binding.root,
+                                result = itResult,
+                                onSuccess = {
+                                    resultBinding.tryAgainButton.setOnClickListener(null)
+                                    binding.textViewEnterNameCity.visibility = View.GONE
+                                })
+                        }
+                        resultBinding.tryAgainButton.setOnClickListener {
+                            viewModel.tryAgain { viewModel.getListAreas() }
+                        }
 
+                    }
                 }
-            }
-        })
+            })
     }
 
 
-
-    private fun deleteChip (it:View){
+    private fun deleteChip(it: View) {
         val parent = it.parent as ChipGroup
         parent.removeView(it)
         buildingRequest.deleteAreasByString((it as Chip).text.toString())
     }
 
-    private fun listenerSelectArea (adapterCity: CustomAutoCompleteAdapterAreas, id: Long){
+    private fun listenerSelectArea(adapterCity: CustomAutoCompleteAdapterAreas, id: Long) {
         binding.addCityEditTextAreas.text = SpannableStringBuilder("")
         buildingRequest.areas.add(adapterCity.getListItemById(id.toInt()))
         val inflater = LayoutInflater.from(requireContext())
-        val newChip = inflater.inflate(R.layout.chip_create_request, binding.createRequestChipGroup, false) as Chip
+        val newChip = inflater.inflate(
+            R.layout.chip_create_request,
+            binding.createRequestChipGroup,
+            false
+        ) as Chip
         newChip.text = adapterCity.getListItemById(id.toInt()).name
         val currentHeight = binding.createRequestChipGroup.height
         binding.createRequestChipGroup.addView(newChip)
-        binding.createRequestChipGroup.measure(0,3)
+        binding.createRequestChipGroup.measure(0, 3)
 
 
 
         newChip.setOnCloseIconClickListener {
             deleteChip(it)
         }
-        if (currentHeight != binding.createRequestChipGroup.measuredHeight){
+        if (currentHeight != binding.createRequestChipGroup.measuredHeight) {
             var step = 0
-            if (binding.createRequestChipGroup.measuredHeight%5 == 0) step = binding.createRequestChipGroup.measuredHeight/5
-            else{
-                val tempHeight = binding.createRequestChipGroup.measuredHeight%5
-                step = binding.createRequestChipGroup.measuredHeight/5
+            if (binding.createRequestChipGroup.measuredHeight % 5 == 0) step =
+                binding.createRequestChipGroup.measuredHeight / 5
+            else {
+                val tempHeight = binding.createRequestChipGroup.measuredHeight % 5
+                step = binding.createRequestChipGroup.measuredHeight / 5
                 val tempParam = binding.createRequestChipGroup.layoutParams.apply {
                     height = tempHeight
                 }
                 binding.createRequestChipGroup.layoutParams = tempParam
             }
 
-            val animator = ValueAnimator.ofInt(binding.createRequestChipGroup.layoutParams.height, binding.createRequestChipGroup.measuredHeight)
+            val animator = ValueAnimator.ofInt(
+                binding.createRequestChipGroup.layoutParams.height,
+                binding.createRequestChipGroup.measuredHeight
+            )
             animator.duration = 250
             animator.addUpdateListener {
                 val value = it.animatedValue as Int
@@ -156,12 +166,15 @@ class CreateRequest(): BaseFragment() {
         }
     }
 
-    private fun listenerSelectEmployer (adapterEmployers: CustomAutoCompleteAdapterEmployers, id: Long){
+    private fun listenerSelectEmployer(
+        adapterEmployers: CustomAutoCompleteAdapterEmployers,
+        id: Long
+    ) {
         binding.addCityEditTextEmployers.text = SpannableStringBuilder("")
         buildingRequest.employers.add(adapterEmployers.getListItemById(id.toInt()))
     }
 
-    private fun listenerOnFocusChange (v: View, hasFocus: Boolean){
+    private fun listenerOnFocusChange(v: View, hasFocus: Boolean) {
         var newHeight = 0
         var oldHeight = 0
 
@@ -169,7 +182,8 @@ class CreateRequest(): BaseFragment() {
             binding.textViewEnterNameCity.visibility = View.VISIBLE
             oldHeight = 0
             binding.textViewEnterNameCity.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            newHeight = binding.textViewEnterNameCity.getMeasureSize(binding.createRequestConstrainLayout).height
+            newHeight =
+                binding.textViewEnterNameCity.getMeasureSize(binding.createRequestConstrainLayout).height
             val animator = ValueAnimator.ofInt(oldHeight, newHeight)
             animator.duration = 800
             animator.addUpdateListener {
@@ -178,8 +192,7 @@ class CreateRequest(): BaseFragment() {
             animator.doOnEnd {
             }
             animator.start()
-        }
-        else {
+        } else {
             binding.textViewEnterNameCity.visibility = View.GONE
             oldHeight = binding.textViewEnterNameCity.height
             binding.textViewEnterNameCity.visibility = View.VISIBLE
@@ -197,17 +210,19 @@ class CreateRequest(): BaseFragment() {
         }
     }
 
-    data class BuildingRequest (val areas: MutableList<AreaRoom> = mutableListOf(),
-                                val employers: MutableList<EmployerRequest> = mutableListOf(),
+    data class BuildingRequest(
+        val areas: MutableList<AreaRoom> = mutableListOf(),
+        val employers: MutableList<EmployerRequest> = mutableListOf(),
     ) {
-        fun deleteAreasByString (name: String){
+        fun deleteAreasByString(name: String) {
             val id = getIdAreasByString(name)
             if (id != null) areas.removeAt(id)
             else throw IllegalArgumentException("NOT INDEX BUILDINGREQUEST")
         }
-        private fun getIdAreasByString (name:String): Int?{
-            if (areas.size != 0){
-                for (i in 0 until areas.size){
+
+        private fun getIdAreasByString(name: String): Int? {
+            if (areas.size != 0) {
+                for (i in 0 until areas.size) {
                     if (areas[i].name == name) return i
                 }
             }

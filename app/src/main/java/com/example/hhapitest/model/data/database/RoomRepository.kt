@@ -9,7 +9,12 @@ import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.hhapitest.model.data.database.dataclassroom.AreaRoom
 
 private const val DATABASE_NAME = "AreaDatabase.db"
-class RoomRepository (context: Context, private val taskFactory: TaskFactory, private val dispatcher: com.example.foundation.model.tasks.dispatchers.Dispatcher) {
+
+class RoomRepository(
+    context: Context,
+    private val taskFactory: TaskFactory,
+    private val dispatcher: com.example.foundation.model.tasks.dispatchers.Dispatcher
+) {
     private val database: AreaRoomDatabase = Room.databaseBuilder(
         context.applicationContext,
         AreaRoomDatabase::class.java,
@@ -21,37 +26,35 @@ class RoomRepository (context: Context, private val taskFactory: TaskFactory, pr
     private val databaseAreaDAO = database.areaDAO()
     private val requestAreaDAO = database.requestDAO()
 
-    fun addAreasRoom (listAreasRoom: List<AreaRoom>){
+    fun addAreasRoom(listAreasRoom: List<AreaRoom>) {
         try {
-            listAreasRoom.forEach { areaRoom->
+            listAreasRoom.forEach { areaRoom ->
                 databaseAreaDAO.addAreaRoom(areaRoom)
             }
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
         }
     }
 
-    fun checkDatabaseOfAreas (): Task<AreaRoom?>{
-       return taskFactory.async {
+    fun checkDatabaseOfAreas(): Task<AreaRoom?> {
+        return taskFactory.async {
             try {
                 return@async databaseAreaDAO.getAreaFromRoom(113)
-            }
-            catch (e: Exception){
-                throw Exception ("ERROR ACCESS  DATABASE")
+            } catch (e: Exception) {
+                throw Exception("ERROR ACCESS  DATABASE")
             }
         }
     }
 
-    fun getAreasOnNameFromRoomNoLiveData(str:String) = databaseAreaDAO.getAreasOnNameFromRoom(str)
+    fun getAreasOnNameFromRoomNoLiveData(str: String) = databaseAreaDAO.getAreasOnNameFromRoom(str)
 
     fun getListRequests() = requestAreaDAO.getRequestsRoomLiveData()
 
 
     private val tasks = mutableSetOf<Task<*>>()
 
-    private fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null){
+    private fun <T> Task<T>.safeEnqueue(listener: TaskListener<T>? = null) {
         tasks.add(this)
-        this.enqueue(MainThreadDispatcher()){
+        this.enqueue(MainThreadDispatcher()) {
             tasks.remove(this)
             listener?.invoke(it)
         }

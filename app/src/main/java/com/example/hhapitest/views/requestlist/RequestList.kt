@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foundation.ARG_STARTUP
-import com.example.hhapitest.databinding.RequestListBinding
-import com.example.foundation.views.HasScreenTitle
 import com.example.foundation.views.BaseFragment
 import com.example.foundation.views.BaseScreen
+import com.example.foundation.views.HasScreenTitle
 import com.example.foundation.views.screenViewModel
 import com.example.hhapitest.databinding.PartResultBinding
+import com.example.hhapitest.databinding.RequestListBinding
 import com.example.hhapitest.views.renderSimpleResult
 
 class RequestList : BaseFragment(), HasScreenTitle {
@@ -24,7 +24,8 @@ class RequestList : BaseFragment(), HasScreenTitle {
     override val viewModel by screenViewModel<RequestListViewModel>()
     private var title: String = "List"
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(savedInstanceState == null || viewModel.urlItem == null) viewModel.urlItem = (arguments?.getSerializable(ARG_STARTUP) as String?)
+        if (savedInstanceState == null || viewModel.urlItem == null) viewModel.urlItem =
+            (arguments?.getSerializable(ARG_STARTUP) as String?)
         super.onCreate(savedInstanceState)
     }
 

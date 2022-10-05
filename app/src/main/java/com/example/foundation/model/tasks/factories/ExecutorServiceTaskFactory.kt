@@ -7,12 +7,12 @@ import com.example.foundation.model.tasks.TaskListener
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
 
-class ExecutorServiceTaskFactory(private val executorService: ExecutorService): TaskFactory {
+class ExecutorServiceTaskFactory(private val executorService: ExecutorService) : TaskFactory {
     override fun <T> async(body: TaskBody<T>): Task<T> {
-        return SynchronizedTask(ExecuteTask (body))
+        return SynchronizedTask(ExecuteTask(body))
     }
 
-    private inner class ExecuteTask<T>(private val body: TaskBody<T>): AbstractTask<T>() {
+    private inner class ExecuteTask<T>(private val body: TaskBody<T>) : AbstractTask<T>() {
         private var future: Future<*>? = null
 
         override fun doEnqueue(listener: TaskListener<T>) {

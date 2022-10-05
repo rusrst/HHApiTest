@@ -16,7 +16,9 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="20"
         tools:listitem="@layout/listofroomrequestitem" />
-    <include layout="@layout/part_result"
+
+    <include
+        layout="@layout/part_result"
         android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

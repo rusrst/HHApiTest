@@ -22,7 +22,8 @@ class SimpleDialogFragment() : DialogFragment() {
             .setMessage(text)
             .create()
     }
-    companion object{
+
+    companion object {
         const val KEY = "SimpleDialog"
         const val TAG = "DefaultRequest"
         const val KEY_RESPONSE = "RESPONSE"

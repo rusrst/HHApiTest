@@ -1,7 +1,8 @@
 package com.example.hhapitest.model.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.foundation.model.*
+import com.example.foundation.model.PendingResult
+import com.example.foundation.model.Result
 import com.example.foundation.model.tasks.Task
 import com.example.foundation.model.tasks.factories.TaskFactory
 import com.example.foundation.views.MutableLiveResult
@@ -15,7 +16,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 typealias DataListener = (Result<String>) -> Unit
 typealias DataListenerList = (Result<List<Area>>) -> Unit
 
-class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDataRepository {
+class HhApiDataInternetRepository(private val taskFactory: TaskFactory) : HHApiDataRepository {
     private var hhAPI: HhAPI
     private val _stringLiveData: MutableLiveResult<String> = MutableLiveData(PendingResult())
 
@@ -27,18 +28,16 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
         hhAPI = retrofit.create(HhAPI::class.java)
     }
 
-     fun getRequestFromUrl(url: String, dataListener: DataListener?): String
-        {
-            val data: Call<String> = hhAPI.getData(url)
-            val response = data.execute()
-            return response.body().toString()
-        }
+    fun getRequestFromUrl(url: String, dataListener: DataListener?): String {
+        val data: Call<String> = hhAPI.getData(url)
+        val response = data.execute()
+        return response.body().toString()
+    }
 
     fun getRequestFromUrlWithJsonParser(
         url: String,
         jsonParser: GetListAreas
-    ):List<Area>
-    {
+    ): List<Area> {
         val call: Call<String> = hhAPI.getData(url)
         val response = call.execute()
         val data = response.body().toString()
@@ -47,14 +46,13 @@ class HhApiDataInternetRepository(private val taskFactory: TaskFactory): HHApiDa
 
     fun getRequestFromUrlEmployersRequest(
         request: String
-    ): Task<String>{
+    ): Task<String> {
         return taskFactory.async {
             val data: Call<String> = hhAPI.getData("https://api.hh.ru/employers?text=$request")
             try {
                 val response = data.execute()
                 return@async response.body().toString()
-            }
-            catch (E: Exception){
+            } catch (E: Exception) {
                 return@async ""
             }
         }

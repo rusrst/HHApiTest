@@ -7,4 +7,5 @@ import androidx.room.PrimaryKey
 data class AreaRoom(
     @PrimaryKey var id: Int,
     var parentId: String?,
-    var name: String?)
+    var name: String?
+)

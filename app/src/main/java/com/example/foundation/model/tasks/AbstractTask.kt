@@ -6,8 +6,6 @@ import com.example.foundation.model.SuccessResult
 import com.example.foundation.model.tasks.dispatchers.Dispatcher
 import com.example.foundation.model.tasks.factories.TaskBody
 import com.example.foundation.utils.delegates.Await
-import java.lang.Exception
-import java.net.CacheRequest
 
 abstract class AbstractTask<T>() : Task<T> {
     private var finalResult by Await<FinalResult<T>>()
@@ -18,17 +16,16 @@ abstract class AbstractTask<T>() : Task<T> {
         }
         doEnqueue(wrapperListener)
         try {
-            when (val result = finalResult){
+            when (val result = finalResult) {
                 is ErrorResult -> throw result.exception
                 is SuccessResult -> return result.data
             }
 
-        } catch(e: Exception) {
-            if (e is InterruptedException){
+        } catch (e: Exception) {
+            if (e is InterruptedException) {
                 cancel()
                 throw CancelledException(e)
-            }
-            else throw e
+            } else throw e
         }
     }
 
